@@ -35,7 +35,15 @@
                         <div class="card">
                             <div class="card-header">
 
-                                <x-backend.form.anchor :href="route('cpbs.create')" type="create" />
+                                @can('Creator_cpbs')
+                                    <x-backend.form.anchor :href="route('cpbs.create')" type="create" />
+                                @endcan
+                                @can('Editor')
+                                    <x-backend.form.anchor :href="route('cpbs.create')" type="create" />
+                                @endcan
+                                @can('Admin')
+                                    <x-backend.form.anchor :href="route('cpbs.create')" type="create" />
+                                @endcan
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -68,12 +76,15 @@
                                                 <td>{{ $cpb->remarks }}</td>
                                                 <td>
 
-                                                    @if (Auth::user()->role_id == 1)
+                                                   @can('Admin')
                                                         <x-backend.form.anchor :href="route('cpbs.edit', ['cpb' => $cpb->id])" type="edit" />
-                                                    @endif
-                                                    <x-backend.form.anchor :href="route('cpbs.show', ['cpb' => $cpb->id])" type="show" />
+                                                    @endcan
+                                                    @can('Editor')
+                                                        <x-backend.form.anchor :href="route('cpbs.edit', ['cpb' => $cpb->id])" type="edit" />
+                                                    @endcan
+                                                    {{-- <x-backend.form.anchor :href="route('cpbs.show', ['cpb' => $cpb->id])" type="show" /> --}}
 
-                                                    @if (Auth::user()->role_id == 1)
+                                                    @can('Admin')
                                                         <form style="display:inline"
                                                             action="{{ route('cpbs.destroy', ['cpb' => $cpb->id]) }}"
                                                             method="POST">
@@ -86,7 +97,22 @@
                                                                 type="submit"><i class="bi bi-trash"></i>
                                                                 Delete</button>
                                                         </form>
-                                                    @endif
+                                                    @endcan
+
+                                                    @can('Editor')
+                                                        <form style="display:inline"
+                                                            action="{{ route('cpbs.destroy', ['cpb' => $cpb->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <button
+                                                                onclick="return confirm('Are you sure want to delete ?')"
+                                                                class="btn btn-outline-danger my-1 mx-1 inline btn-sm"
+                                                                type="submit"><i class="bi bi-trash"></i>
+                                                                Delete</button>
+                                                        </form>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

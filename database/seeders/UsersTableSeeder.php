@@ -25,14 +25,14 @@ class UsersTableSeeder extends Seeder
             'company_id' => '1',
             'department_id' => '9',
             'designation_id' => '1',
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('admin456'),
             'remember_token' => Str::random(10),
         ]);
         User::create([
-            'role_id' => 2,
-            'name' => 'general user',
+            'role_id' => 3,
+            'name' => 'creator cpbs',
             'emp_id' => '002',
-            'email' => 'user@ntg.com.bd',
+            'email' => 'cpbs@ntg.com.bd',
             'picture' => 'avatar.png',
             'dob' => '1989-02-03',
             'joining_date' => '2019-02-03',
@@ -41,13 +41,13 @@ class UsersTableSeeder extends Seeder
             'department_id' => '9',
             'designation_id' => '8',
             'email_verified_at' => now(),
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('cpbs123'),
             'remember_token' => Str::random(10),
         ]);
 
         User::create([
-            'role_id' => 2,
-            'name' => 'supervisor user',
+            'role_id' => 5,
+            'name' => 'creator qcs',
             'emp_id' => '003',
             'picture' => 'avatar.png',
             'dob' => '1989-02-03',
@@ -56,17 +56,17 @@ class UsersTableSeeder extends Seeder
             'company_id' => '1',
             'department_id' => '9',
             'designation_id' => '6',
-            'email' => 'supervisor@ntg.com.bd',
+            'email' => 'qcs@ntg.com.bd',
             'email_verified_at' => now(),
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('qcs456'),
             'remember_token' => Str::random(10),
         ]);
 
         User::create([
-            'role_id' => 2,
-            'name' => 'Nahid Hasan',
+            'role_id' => 4,
+            'name' => 'Editor',
             'emp_id' => '00422',
-            'email' => 'nahidhasan@ntg.com.bd',
+            'email' => 'editor@ntg.com.bd',
             'email_verified_at' => now(),
             'picture' => 'avatar.png',
             'dob' => '1984-02-03',
@@ -75,61 +75,10 @@ class UsersTableSeeder extends Seeder
             'company_id' => '1',
             'department_id' => '15',
             'designation_id' => '6',
-            'mobile' => '01810157700',
-            'password' => bcrypt('12345678'),
-            'remember_token' => Str::random(10),
-        ]);
-        User::create([
-            'role_id' => 2,
-            'name' => 'Zubaed',
-            'emp_id' => '00433',
-            'email' => 'zubaed@ntg.com.bd',
-            'picture' => 'Zubaed.jpg',
-            'dob' => '1985-02-03',
-            'joining_date' => '2019-02-03',
-            'division_id' => '1',
-            'company_id' => '1',
-            'department_id' => '15',
-            'designation_id' => '11',
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('987654321'),
             'remember_token' => Str::random(10),
         ]);
 
-        User::create([
-            'role_id' => 2,
-            'name' => 'Hadik',
-            'emp_id' => '00403',
-            'email' => 'hadik@ntg.com.bd',
-            'picture' => 'Hadik.jpeg',
-            'dob' => '1986-02-03',
-            'joining_date' => '2019-02-03',
-            'division_id' => '1',
-            'company_id' => '1',
-            'department_id' => '15',
-            'designation_id' => '11',
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345678'),
-            'remember_token' => Str::random(10),
-        ]);
 
-        User::create([
-            'role_id' => 2,
-            'name' => 'Hasibul Islam Santo',
-            'emp_id' => '00472',
-            'email' => 'santo@ntg.com.bd',
-            'picture' => 'Santo.png',
-            'dob' => '1989-02-03',
-            'joining_date' => '2023-02-08',
-            'division_id' => '1',
-            'company_id' => '1',
-            'department_id' => '15',
-            'designation_id' => '11',
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345678'),
-            'remember_token' => Str::random(10),
-        ]);
-
-        
     }
 }

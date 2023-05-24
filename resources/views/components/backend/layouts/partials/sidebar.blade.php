@@ -48,7 +48,7 @@
                             </a>
                             <a class="nav-link" href="{{ route('qcs.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Knitting QC Management
+                                QCS Management
                             </a>
                         </nav>
                     </div>
@@ -58,12 +58,12 @@
 
                     {{-- start DataEntry --}}
 
-                    {{-- <a class="nav-link collapsed " href="#" data-bs-toggle="collapse"
+                    <a class="nav-link collapsed " href="#" data-bs-toggle="collapse"
                         data-bs-target="#collapseLayoutsDataEntry" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"></div>
                         <h4 class="sb-sidenav-menu-heading" style="color:#40c47c;">Entry Form</h4>
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a> --}}
+                    </a>
 
 
                     {{-- end DataEntry  --}}
@@ -99,7 +99,7 @@
             @endcan
 
 
-            @can('General')
+            @can('Creator_cpbs')
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading"></div>
 
@@ -111,14 +111,54 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Profile
                     </a>
-                    <a class="nav-link" href="{{ route('cpbs.index') }}">
+                        <a class="nav-link" href="{{ route('cpbs.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            CPB Management
+                        </a>
+
+                </div>
+            @endcan
+
+            @can('Creator_qcs')
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading"></div>
+
+                    <a class="nav-link " href="{{ route('home') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        CPB Management
+                        Home
                     </a>
-                    <a class="nav-link" href="{{ route('qcs.index') }}">
+                    <a class="nav-link " href="{{ route('users.show', ['user' => auth()->user()->id]) }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Knitting QC Management
+                        Profile
                     </a>
+                        <a class="nav-link" href="{{ route('qcs.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            QCS Management
+                        </a>
+
+                </div>
+            @endcan
+
+            @can('Editor')
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading"></div>
+
+                    <a class="nav-link " href="{{ route('home') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Home
+                    </a>
+                    <a class="nav-link " href="{{ route('users.show', ['user' => auth()->user()->id]) }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Profile
+                    </a>
+                        <a class="nav-link" href="{{ route('cpbs.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            CPB Management
+                        </a>
+                        <a class="nav-link" href="{{ route('qcs.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            QCS Management
+                        </a>
 
                 </div>
             @endcan

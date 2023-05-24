@@ -11,6 +11,7 @@ class CPBController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', CPB::class); // Check if the user can view any CPBs
         $cpbs = CPB::all();
         return view('backend.library.cpbs.index', compact('cpbs'));
     }
@@ -18,6 +19,7 @@ class CPBController extends Controller
 
     public function create()
     {
+        $this->authorize('create', CPB::class); // Check if the user can create a CPB
         $cpbs = CPB::all();
         return view('backend.library.cpbs.create', compact('cpbs'));
     }
@@ -25,6 +27,7 @@ class CPBController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', CPB::class); // Check if the user can create a CPB
         $request->validate([
             'date' => 'required',
             'mc_no' => 'required',
@@ -52,6 +55,7 @@ class CPBController extends Controller
     public function show($id)
     {
         $cpbs = CPB::findOrFail($id);
+        $this->authorize('viewAny', $cpbs); // Check if the user can view the specific CPB
         return view('backend.library.cpbs.show', compact('cpbs'));
     }
 
@@ -59,6 +63,7 @@ class CPBController extends Controller
     public function edit($id)
     {
         $cpbs = CPB::findOrFail($id);
+        $this->authorize('update', $cpbs); // Check if the user can update the specific CPB
         return view('backend.library.cpbs.edit', compact('cpbs'));
     }
 
@@ -75,6 +80,7 @@ class CPBController extends Controller
 
         // Data update
         $cpbs = CPB::findOrFail($id);
+        $this->authorize('update', $cpbs); // Check if the user can update the specific CPB
         $cpbs->date = $request->date;
         // convert to uppercase all letters
         $cpbs->mc_no = strtoupper($request->mc_no);
@@ -92,6 +98,7 @@ class CPBController extends Controller
     public function destroy($id)
     {
         $cpbs = CPB::findOrFail($id);
+        $this->authorize('delete', $cpbs); // Check if the user can delete the specific CPB
 
         $cpbs->delete();
 

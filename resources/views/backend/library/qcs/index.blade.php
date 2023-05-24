@@ -1,5 +1,5 @@
 <x-backend.layouts.master>
-    <x-slot name="pageTitle">
+        <x-slot name="pageTitle">
         Knitting QC Data List
     </x-slot>
 
@@ -34,8 +34,18 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-
+                                @can('Admin')
                                 <x-backend.form.anchor :href="route('qcs.create')" type="create" />
+                                @endcan
+
+                                @can('Editor')
+                                <x-backend.form.anchor :href="route('qcs.create')" type="create" />
+                                @endcan
+
+                                @can('Creator_qcs')
+                                <x-backend.form.anchor :href="route('qcs.create')" type="create" />
+                                @endcan
+                                
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -74,12 +84,15 @@
                                                 <td>{{ $qc->qc_pass_qty }}</td>
                                                 <td>
 
-                                                    @if (Auth::user()->role_id == 1)
+                                                     @can( 'Admin')
                                                         <x-backend.form.anchor :href="route('qcs.edit', ['qc' => $qc->id])" type="edit" />
-                                                    @endif
+                                                    @endcan
+                                                    @can( 'Editor')
+                                                        <x-backend.form.anchor :href="route('qcs.edit', ['qc' => $qc->id])" type="edit" />
+                                                    @endcan
                                                     <x-backend.form.anchor :href="route('qcs.show', ['qc' => $qc->id])" type="show" />
 
-                                                    @if (Auth::user()->role_id == 1)
+                                                    @can('Admin')
                                                         <form style="display:inline"
                                                             action="{{ route('qcs.destroy', ['qc' => $qc->id]) }}"
                                                             method="POST">
@@ -92,7 +105,22 @@
                                                                 type="submit"><i class="bi bi-trash"></i>
                                                                 Delete</button>
                                                         </form>
-                                                    @endif
+                                                    @endcan
+
+                                                    @can('Editor')
+                                                        <form style="display:inline"
+                                                            action="{{ route('qcs.destroy', ['qc' => $qc->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <button
+                                                                onclick="return confirm('Are you sure want to delete ?')"
+                                                                class="btn btn-outline-danger my-1 mx-1 inline btn-sm"
+                                                                type="submit"><i class="bi bi-trash"></i>
+                                                                Delete</button>
+                                                        </form>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

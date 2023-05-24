@@ -11,6 +11,7 @@ class QCController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', QC::class); // Check if the user can view any QC
         $qcs = QC::all();
         return view('backend.library.qcs.index', compact('qcs'));
     }
@@ -18,6 +19,7 @@ class QCController extends Controller
 
     public function create()
     {
+        $this->authorize('create', QC::class); // Check if the user can create a QC
         $qcs = QC::all();
         return view('backend.library.qcs.create', compact('qcs'));
     }
@@ -25,6 +27,7 @@ class QCController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create', QC::class); // Check if the user can create a QC
         // dd($request->all());
         $request->validate([
             'date' => 'required',
@@ -58,6 +61,7 @@ class QCController extends Controller
     public function show($id)
     {
         $qcs = QC::findOrFail($id);
+        $this->authorize('viewAny', $qcs); // Check if the user can view the specific QC
         return view('backend.library.qcs.show', compact('qcs'));
     }
 
@@ -65,6 +69,7 @@ class QCController extends Controller
     public function edit($id)
     {
         $qcs = QC::findOrFail($id);
+        $this->authorize('update', $qcs); // Check if the user can update the specific qcs
         return view('backend.library.qcs.edit', compact('qcs'));
     }
 
@@ -82,6 +87,7 @@ class QCController extends Controller
 
         // Data update
         $qcs = QC::findOrFail($id);
+        $this->authorize('update', $qcs); // Check if the user can update the specific qcs
         // Data insert
         $qcs->date = $request->date;
         $qcs->shift = $request->shift;
@@ -103,6 +109,7 @@ class QCController extends Controller
     public function destroy($id)
     {
         $qcs = QC::findOrFail($id);
+        $this->authorize('delete', $qcs); // Check if the user can delete the specific qcs
 
         $qcs->delete();
 

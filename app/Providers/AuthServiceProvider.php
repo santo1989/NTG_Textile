@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\CPB;
+use App\Models\QC;
 use App\Models\User;
+use App\Policies\CPBPolicy;
+use App\Policies\QCPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,6 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        CPB::class => CPBPolicy::class,
+        QC::class => QCPolicy::class,
     ];
 
     /**
@@ -45,7 +51,7 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        Gate::define('Supervisor', function (User $user) {
+        Gate::define('Creator_cpbs', function (User $user) {
 
             if ($user->role_id == 3) {
                 return true;
@@ -53,7 +59,7 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        Gate::define('HR-Manager', function (User $user) {
+        Gate::define('Editor', function (User $user) {
 
             if ($user->role_id == 4) {
                 return true;
@@ -61,7 +67,7 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        Gate::define('HR-officer', function (User $user) {
+        Gate::define('Creator_qcs', function (User $user) {
 
             if ($user->role_id == 5) {
                 return true;

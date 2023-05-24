@@ -14,7 +14,7 @@
 
 
     <x-backend.layouts.elements.errors />
-    <form action="{{ route('cpbs.update', ['division' => $cpbs->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('cpbs.update', ['cpb' => $cpbs->id]) }}" method="post" enctype="multipart/form-data">
         
             
 <div class="container-fluid">
@@ -24,31 +24,31 @@
     <div class="row">
         <div class="col-md-6">
             <label for="date">Date</label>
-            <input name="date" type="date" value="{{ $data->date }}" class="form-control" readonly>
+            <input name="date" type="date" value="{{ $cpbs->date }}" class="form-control" readonly>
         </div>
         <div class="col-md-6">
             <label for="mc_no">M/c No</label>
-            <input type="text" name="mc_no" id="mc_no" class="form-control" value="{{ $data->mc_no }}" placeholder="M/c No" required>
+            <input type="text" name="mc_no" id="mc_no" class="form-control" value="{{ $cpbs->mc_no }}" placeholder="M/c No" required>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <label for="target_kg">Target(KG)</label>
-            <input name="target_kg" type="number" id="target_kg" class="form-control" placeholder="Target(KG)" value="{{ $data->target_kg }}" required>
+            <input name="target_kg" type="number" id="target_kg" class="form-control" placeholder="Target(KG)" value="{{ $cpbs->target_kg }}" required>
         </div>
         <div class="col-md-6">
             <label for="actual_production_kg">Actual production(KG)</label>
-            <input type="number" name="actual_production_kg" id="actual_production_kg" class="form-control" placeholder="Actual production(KG)" value="{{ $data->actual_production_kg }}" required>
+            <input type="number" name="actual_production_kg" id="actual_production_kg" class="form-control" placeholder="Actual production(KG)" value="{{ $cpbs->actual_production_kg }}" required>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <label for="remarks">Achievement% </label>
-            <input id="result" type="text" class="form-control" value="{{ $data->achievement }}" readonly>
+            <input id="result" type="text" class="form-control" value="{{ $cpbs->achievement }}" readonly>
         </div>
         <div class="col-md-6">
             <label for="remarks">Remarks</label>
-            <textarea name="remarks" id="remarks" class="form-control" placeholder="Remarks">{{ $data->remarks }}</textarea>
+            <textarea name="remarks" id="remarks" class="form-control" placeholder="Remarks">{{ $cpbs->remarks }}</textarea>
         </div>
     </div>
 
