@@ -107,10 +107,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Home
                     </a>
-                    <a class="nav-link " href="{{ route('users.show', ['user' => auth()->user()->id]) }}">
+                    <!-- <a class="nav-link " href="{{ route('users.show', ['user' => auth()->user()->id]) }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Profile
-                    </a>
+                    </a> -->
                         <a class="nav-link" href="{{ route('cpbs.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             CPB Management
@@ -127,10 +127,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Home
                     </a>
-                    <a class="nav-link " href="{{ route('users.show', ['user' => auth()->user()->id]) }}">
+                    <!-- <a class="nav-link " href="{{ route('users.show', ['user' => auth()->user()->id]) }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Profile
-                    </a>
+                    </a> -->
                         <a class="nav-link" href="{{ route('qcs.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             QCS Management

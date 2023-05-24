@@ -231,7 +231,7 @@
                     <div class="card-body d-flex flex-column justify-content-center align-items-center"
                         style="height: 20vh">
                         <h2 class="card-title"style="font-size:2vw;">Rejection % </h2>
-                        <h3 class="card-text" id="total_precentage_rejection" style="font-size:4vw;">
+                        <h3 class="card-text" id="total_precentage_rejection" style="font-size:3vw;">
                             {{ $total_precentage_rejection }} %
                         </h3>
                     </div>
