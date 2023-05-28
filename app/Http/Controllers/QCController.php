@@ -12,7 +12,7 @@ class QCController extends Controller
     public function index()
     {
         $this->authorize('viewAny', QC::class); // Check if the user can view any QC
-        $qcs = QC::all();
+        $qcs = QC::latest();
         return view('backend.library.qcs.index', compact('qcs'));
     }
 
@@ -125,7 +125,13 @@ class QCController extends Controller
         $total_rejection = $qcs->sum('rejection');
         $total_check = $qcs->sum('total_check');
         $total_qc_pass_qty = $qcs->sum('qc_pass_qty');
-        $total_precentage_rejection = round($total_rejection / $total_check * 100, 2);
+        if($total_check == 0 || $total_check=='null')
+        {
+            $total_precentage_rejection = 0; 
+        }else{
+           $total_precentage_rejection = round($total_rejection / $total_check * 100, 2); 
+        }
+        
 
 
 
