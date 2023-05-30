@@ -254,8 +254,9 @@
                 type: 'GET',
                 dataType: 'json',
                 data: {
-                    today: '{{ (now()-(24*60*60))->format('Y-m-d') }}'
-                },
+    yesterday: '{{ (now()-(24*60*60))->format('Y-m-d') }}'
+},
+
                 success: function(response) {
                     // Get the current CPB data to show
                     var cpb = response[currentIndex];
