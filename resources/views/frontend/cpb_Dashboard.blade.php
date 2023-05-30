@@ -59,7 +59,7 @@
                 <div
                     class="col-md-4 today-date text-light d-flex flex-column justify-content-center align-items-center">
                     <strong>
-                        Today's Date: <span id="currentDate"></span> <br>
+                         Date: <span id="currentDate">{{ carbon\Carbon::now()->subDay()->format('M d, Y') }}</span> <br>
                         Current Time: <span id="currentTime"></span>
                     </strong>
 
@@ -236,7 +236,7 @@
                 minute: '2-digit'
             });
 
-            document.getElementById('currentDate').textContent = currentDate;
+            // document.getElementById('currentDate').textContent = currentDate;
             document.getElementById('currentTime').textContent = currentTime;
         }
 

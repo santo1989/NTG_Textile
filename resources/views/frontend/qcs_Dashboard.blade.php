@@ -59,7 +59,7 @@
                 <div
                     class="col-md-4 today-date text-light d-flex flex-column justify-content-center align-items-center">
                     <strong>
-                        Today's Date: <span id="currentDate"></span> <br>
+                        Date: <span id="currentDate">{{ carbon\Carbon::now()->subDay()->format('M d, Y') }}</span> <br>
                         Current Time: <span id="currentTime"></span>
                     </strong>
 
@@ -127,7 +127,7 @@
                 <!-- Second Row of Second Column -->
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="card text-light" style="background: #ff0000; border: 1px solid #ffffff;">
+                        <div class="card text-light" id="rejection_div">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center"
                                 style="height: 28vh">
                                 <h2 class="card-title" style="font-size:2vw;">Rejection</h2>
@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card text-light" style="background: #ff0000; border: 1px solid #ffffff;">
+                        <div class="card text-light" id="precentage_rejection_div">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center"
                                 style="height: 28vh">
                                 <h2 class="card-title" style="font-size:2vw;">Rejection %</h2>
@@ -217,7 +217,7 @@
                 </div>
             </div>
             <div class="col-md-2 ">
-                <div class="card mb-3 text-light" style="background: #ff0000; border: 1px solid #ffffff;">
+                <div class="card mb-3 text-light" id="total_rejection_div">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center"
                         style="height: 20vh">
                         <h2 class="card-title"style="font-size:2vw;">Rejection </h2>
@@ -227,7 +227,7 @@
                 </div>
             </div>
             <div class="col-md-2 ">
-                <div class="card mb-3 text-light" style="background: #ff0000; border: 1px solid #ffffff;">
+                <div class="card mb-3 text-light" id="total_precentage_rejection_div">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center"
                         style="height: 20vh">
                         <h2 class="card-title"style="font-size:2vw;">Rejection % </h2>
@@ -253,9 +253,9 @@
                 url: '{{ route('get_qcs') }}',
                 type: 'GET',
                 dataType: 'json',
-               data: {
-        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
-    },
+                data: {
+                    'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+                },
 
                 success: function(response) {
                     // Get the current CPB data to show
@@ -282,6 +282,22 @@
                     $('#total_check').append(cpb.total_check.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
                     $('#qc_pass_qty').append(cpb.qc_pass_qty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 
+                    if (parseFloat(response.rejection) > 0) {
+                        document.getElementById('rejection_div').style.background = '#FF0000';
+                        document.getElementById('rejection_div').style.border = '1px solid #ffffff';
+                    } else {
+                        document.getElementById('rejection_div').style.background = '#00ff00';
+                        document.getElementById('rejection_div').style.border = '1px solid #ffffff';
+                    }
+
+                    if (parseFloat(response.precentage_rejection) > 0) {
+                        document.getElementById('precentage_rejection_div').style.background = '#FF0000';
+                        document.getElementById('precentage_rejection_div').style.border = '1px solid #ffffff';
+                    } else {
+                        document.getElementById('precentage_rejection_div').style.background = '#00ff00';
+                        document.getElementById('precentage_rejection_div').style.border = '1px solid #ffffff';
+                    }
+
 
                     // Increment the current index to show the next CPB data on the next AJAX call
                     currentIndex++;
@@ -304,17 +320,23 @@
 
         // Function to update the current date and time
         function updateDateTime() {
-            var currentDate = new Date().toLocaleDateString(undefined, {
-                day: 'numeric',
+            var currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() - 1);
+
+            var options = {
                 month: 'long',
+                day: 'numeric',
                 year: 'numeric'
-            });
+            };
+            var yesterdayDate = currentDate.toLocaleDateString(undefined, options);
+
+
             var currentTime = new Date().toLocaleTimeString(undefined, {
                 hour: '2-digit',
                 minute: '2-digit'
             });
 
-            document.getElementById('currentDate').textContent = currentDate;
+            // document.getElementById('currentDate').textContent = currentDate;
             document.getElementById('currentTime').textContent = currentTime;
         }
 
@@ -330,8 +352,8 @@
                 type: 'GET',
                 dataType: 'json',
                 data: {
-        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
-    },
+                    'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+                },
                 success: function(response) {
                     console.log(response);
                     // Update the values 
@@ -347,6 +369,24 @@
                     ('total_precentage_rejection').textContent = response.total_precentage_rejection.toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
+                    if (parseFloat(response.total_precentage_rejection) > 0) {
+                        document.getElementById('total_precentage_rejection_div').style.background = '#ff0000';
+                        document.getElementById('total_precentage_rejection_div').style.border =
+                            '1px solid #ffffff';
+                    } else {
+                        document.getElementById('total_precentage_rejection_div').style.background = '#00ff00';
+                        document.getElementById('total_precentage_rejection_div').style.border =
+                            '1px solid #ffffff';
+                    }
+
+                    if (parseFloat(response.total_rejection) > 0) {
+                        document.getElementById('total_rejection_div').style.background = '#ff0000';
+                        document.getElementById('total_rejection_div').style.border = '1px solid #ffffff';
+                    } else {
+                        document.getElementById('total_rejection_div').style.background = '#00ff00';
+                        document.getElementById('total_rejection_div').style.border = '1px solid #ffffff';
+                    }
+
 
                 },
                 complete: function() {
@@ -354,7 +394,7 @@
                     setTimeout(updateTotalCardView, 3000);
                 }
             });
-            
+
         }
 
         // Call the function to start updating the card view
