@@ -128,9 +128,11 @@
                 url: '{{ route('get_cpbs') }}',
                 type: 'GET',
                 dataType: 'json',
-                data: {
-    yesterday: '{{ (now()-(24*60*60))->format('Y-m-d') }}'
-},
+
+$data = [
+    'yesterday' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24*60*60))->format('Y-m-d') }}'
+];
+
                 success: function(response) {
                     // Get the current CPB data to show
                     var cpb = response[currentIndex];
