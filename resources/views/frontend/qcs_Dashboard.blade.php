@@ -254,8 +254,8 @@
                 type: 'GET',
                 dataType: 'json',
                 $data = [
-    'yesterday' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24*60*60))->format('Y-m-d') }}'
-];
+                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+                ];
 
                 success: function(response) {
                     // Get the current CPB data to show
@@ -329,17 +329,23 @@
                 url: '{{ route('getQCs_total') }}',
                 type: 'GET',
                 dataType: 'json',
-                data: {
-                    today: '{{ now()->format('Y-m-d') }}'
-                },
+                $data = [
+                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+                ];
                 success: function(response) {
                     console.log(response);
                     // Update the values 
                     document.getElementById('all_shift').textContent = `A, B, C`;
-                    document.getElementById('total_grade_a').textContent = response.total_grade_a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                    document.getElementById('total_grade_b').textContent = response.total_grade_b.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                    document.getElementById('total_grade_c').textContent = response.total_grade_c.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                    document.getElementById('total_rejection').textContent = response.total_rejection.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');('total_precentage_rejection').textContent = response.total_precentage_rejection.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    document.getElementById('total_grade_a').textContent = response.total_grade_a.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    document.getElementById('total_grade_b').textContent = response.total_grade_b.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    document.getElementById('total_grade_c').textContent = response.total_grade_c.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    document.getElementById('total_rejection').textContent = response.total_rejection.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    ('total_precentage_rejection').textContent = response.total_precentage_rejection.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 
                 },

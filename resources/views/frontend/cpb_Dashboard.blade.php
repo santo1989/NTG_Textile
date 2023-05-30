@@ -129,9 +129,9 @@
                 type: 'GET',
                 dataType: 'json',
 
-$data = [
-    'yesterday' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24*60*60))->format('Y-m-d') }}'
-];
+                $data = [
+                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+                ];
 
                 success: function(response) {
                     // Get the current CPB data to show
@@ -161,7 +161,8 @@ $data = [
                         <div class="card text-light" style="background: #384268; border: 1px solid #ffffff;">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 20vh;">
                                 <h2 class="card-title" style="font-size:2vw;">Target(KG)</h2>
-                                <h2 class=" card-text " style="font-size:5vw;">` + cpb.target_kg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + `</h2>
+                                <h2 class=" card-text " style="font-size:5vw;">` + cpb.target_kg.toString().replace(
+                            /\B(?=(\d{3})+(?!\d))/g, ',') + `</h2>
                                 
                             </div>
                         </div>
@@ -170,7 +171,8 @@ $data = [
                         <div class="card text-light" style="` + cpb.style + `">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 20vh">
                                 <h2 class="card-title" style="font-size:2vw;">Actual(KG)</h2>
-                                <h2 class="card-text" style="font-size:5vw;">` + cpb.actual_production_kg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + `</h2>
+                                <h2 class="card-text" style="font-size:5vw;">` + cpb.actual_production_kg.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + `</h2>
                                 
                             </div>
                         </div>
@@ -183,7 +185,8 @@ $data = [
                         <div class="card text-light" style="background:#774F32; border: 1px solid #ffffff;" >
                             <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 28vh">
                                 <h2 class="card-title" style="font-size:2vw;">Variance (KG)</h2>
-                                <h3 class="card-text" style="font-size:5vw;` + cpb.arrow_icon + `">` + cpb.variance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ` </h3> 
+                                <h3 class="card-text" style="font-size:5vw;` + cpb.arrow_icon + `">` + cpb.variance
+                        .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ` </h3> 
                                 
                             </div>
                         </div>
@@ -248,15 +251,17 @@ $data = [
                 url: '{{ route('getCPBs_total') }}',
                 type: 'GET',
                 dataType: 'json',
-                data: {
-                    today: '{{ now()->format('Y-m-d') }}'
-                },
+                $data = [
+                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+                ];
                 success: function(response) {
                     // Update the values of total_achievement, total_actual_production_kg, and total_achievement
                     // $('#total_achievement').text(response.total_achievement);
-                    document.getElementById('total_target_kg').textContent = response.total_target_kg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    document.getElementById('total_target_kg').textContent = response.total_target_kg.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     // $('#total_actual_production_kg').text(response.total_actual_production_kg);
-                    document.getElementById('total_actual_production_kg').textContent = response.total_actual_production_kg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    document.getElementById('total_actual_production_kg').textContent = response
+                        .total_actual_production_kg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                     // $('#total_achievement').text('' + response.total_achievement + '%');
                     document.getElementById('total_achievement').textContent = response.total_achievement + '%';
 
