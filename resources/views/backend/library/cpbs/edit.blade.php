@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-6">
             <label for="date">Date</label>
-            <input name="date" type="date" value="{{ $cpbs->date }}" class="form-control" readonly>
+            <input name="date" type="date" id="date" value="{{ $cpbs->date }}" class="form-control">
         </div>
         <div class="col-md-6">
             <label for="mc_no">M/c No</label>

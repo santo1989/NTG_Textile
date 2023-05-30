@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="date">Date</label>
-                    <input name="date" type="date" value="{{ date('Y-m-d') }}" class="form-control" readonly>
+                    <input name="date" id="date"  type="date" class="form-control" required>
                 </div>
                 <div class="col-md-6">
                     <label for="mc_no">M/c No</label>

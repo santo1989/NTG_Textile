@@ -12,7 +12,8 @@ class QCController extends Controller
     public function index()
     {
         $this->authorize('viewAny', QC::class); // Check if the user can view any QC
-        $qcs = QC::latest();
+        $qcs = QC::latest()->get();
+        // dd($qcs);
         return view('backend.library.qcs.index', compact('qcs'));
     }
 
@@ -118,7 +119,7 @@ class QCController extends Controller
 
     public function dashboard()
     {
-        $qcs = QC::whereDate('date', Carbon::today())->get();
+        $qcs = QC::whereDate('date',Carbon::yesterday())->get();
         $total_grade_a = $qcs->sum('grade_a');
         $total_grade_b = $qcs->sum('grade_b');
         $total_grade_c = $qcs->sum('grade_c');
