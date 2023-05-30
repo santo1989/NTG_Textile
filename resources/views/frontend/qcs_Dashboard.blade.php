@@ -253,9 +253,9 @@
                 url: '{{ route('get_qcs') }}',
                 type: 'GET',
                 dataType: 'json',
-                $data = [
-                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
-                ];
+               data: {
+        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+    },
 
                 success: function(response) {
                     // Get the current CPB data to show
@@ -329,9 +329,9 @@
                 url: '{{ route('getQCs_total') }}',
                 type: 'GET',
                 dataType: 'json',
-                $data = [
-                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
-                ];
+                data: {
+        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+    },
                 success: function(response) {
                     console.log(response);
                     // Update the values 
@@ -354,6 +354,7 @@
                     setTimeout(updateTotalCardView, 3000);
                 }
             });
+            
         }
 
         // Call the function to start updating the card view

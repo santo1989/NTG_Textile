@@ -107,16 +107,18 @@ class CPBController extends Controller
 
     public function dashboard()
     {
-        $cpbs = CPB::whereDate('date', Carbon::yesterday())->get();
+        $yesterday = Carbon::now()->subDay();
+        $cpbs = CPB::whereDate('date', $yesterday)->get();
 
         // dd($cpbs);
 
         $total_target_kg = $cpbs->sum('target_kg');
         $total_actual_production_kg = $cpbs->sum('actual_production_kg');
-        $total_achievement = ($total_actual_production_kg > 0) ?  round(( $total_actual_production_kg / $total_target_kg) * 100,2) : 0;
+        $total_achievement = ($total_actual_production_kg > 0) ? round(($total_actual_production_kg / $total_target_kg) * 100, 2) : 0;
 
         return view('frontend.cpb_Dashboard', compact('cpbs', 'total_target_kg', 'total_actual_production_kg', 'total_achievement'));
     }
+
 
     public function getCPBs(Request $request)
     {

@@ -129,9 +129,9 @@
                 type: 'GET',
                 dataType: 'json',
 
-                $data = [
-                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
-                ];
+               data: {
+        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+    },
 
                 success: function(response) {
                     // Get the current CPB data to show
@@ -251,9 +251,9 @@
                 url: '{{ route('getCPBs_total') }}',
                 type: 'GET',
                 dataType: 'json',
-                $data = [
-                    'today' => '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
-                ];
+                data: {
+        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+    },
                 success: function(response) {
                     // Update the values of total_achievement, total_actual_production_kg, and total_achievement
                     // $('#total_achievement').text(response.total_achievement);
