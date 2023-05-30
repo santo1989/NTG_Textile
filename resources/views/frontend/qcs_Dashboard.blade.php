@@ -137,7 +137,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card text-light" id="precentage_rejection_div">
+                        <div class="card text-light" id="percentage_rejection_div">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center"
                                 style="height: 28vh">
                                 <h2 class="card-title" style="font-size:2vw;">Rejection %</h2>
@@ -282,21 +282,22 @@
                     $('#total_check').append(cpb.total_check.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
                     $('#qc_pass_qty').append(cpb.qc_pass_qty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 
-                    if (parseFloat(response.rejection) > 0) {
-                        document.getElementById('rejection_div').style.background = '#FF0000';
+                    if (parseFloat(cpb.rejection) > 0) {
+                        document.getElementById('rejection_div').style.background = 'rgb(255, 0, 0)';
                         document.getElementById('rejection_div').style.border = '1px solid #ffffff';
                     } else {
                         document.getElementById('rejection_div').style.background = '#00ff00';
                         document.getElementById('rejection_div').style.border = '1px solid #ffffff';
                     }
 
-                    if (parseFloat(response.precentage_rejection) > 0) {
-                        document.getElementById('precentage_rejection_div').style.background = '#FF0000';
-                        document.getElementById('precentage_rejection_div').style.border = '1px solid #ffffff';
+                    if (parseFloat(cpb.precentage_rejection) > 0) {
+                        document.getElementById('percentage_rejection_div').style.background = 'rgb(255, 0, 0)';
+                        document.getElementById('percentage_rejection_div').style.border = '1px solid #ffffff';
                     } else {
-                        document.getElementById('precentage_rejection_div').style.background = '#00ff00';
-                        document.getElementById('precentage_rejection_div').style.border = '1px solid #ffffff';
+                        document.getElementById('percentage_rejection_div').style.background = '#00ff00';
+                        document.getElementById('percentage_rejection_div').style.border = '1px solid #ffffff';
                     }
+
 
 
                     // Increment the current index to show the next CPB data on the next AJAX call
