@@ -286,7 +286,7 @@
                         document.getElementById('rejection_div').style.background = 'rgb(255, 0, 0)';
                         document.getElementById('rejection_div').style.border = '1px solid #ffffff';
                     } else {
-                        document.getElementById('rejection_div').style.background = '#00ff00';
+                        document.getElementById('rejection_div').style.background = '#384268';
                         document.getElementById('rejection_div').style.border = '1px solid #ffffff';
                     }
 
@@ -294,7 +294,7 @@
                         document.getElementById('percentage_rejection_div').style.background = 'rgb(255, 0, 0)';
                         document.getElementById('percentage_rejection_div').style.border = '1px solid #ffffff';
                     } else {
-                        document.getElementById('percentage_rejection_div').style.background = '#00ff00';
+                        document.getElementById('percentage_rejection_div').style.background = '#384268';
                         document.getElementById('percentage_rejection_div').style.border = '1px solid #ffffff';
                     }
 
@@ -375,7 +375,7 @@
                         document.getElementById('total_precentage_rejection_div').style.border =
                             '1px solid #ffffff';
                     } else {
-                        document.getElementById('total_precentage_rejection_div').style.background = '#00ff00';
+                        document.getElementById('total_precentage_rejection_div').style.background = '#384268';
                         document.getElementById('total_precentage_rejection_div').style.border =
                             '1px solid #ffffff';
                     }
@@ -384,7 +384,7 @@
                         document.getElementById('total_rejection_div').style.background = '#ff0000';
                         document.getElementById('total_rejection_div').style.border = '1px solid #ffffff';
                     } else {
-                        document.getElementById('total_rejection_div').style.background = '#00ff00';
+                        document.getElementById('total_rejection_div').style.background = '#384268';
                         document.getElementById('total_rejection_div').style.border = '1px solid #ffffff';
                     }
 
