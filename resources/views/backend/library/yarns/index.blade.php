@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-header">
 
-                                @can('Creator_grey')
+                                @can('Creator_yarn')
                                     <x-backend.form.anchor :href="route('yarns.create')" type="create" />
                                 @endcan
                                 @can('Editor_fabrics')
