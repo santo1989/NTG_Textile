@@ -33,6 +33,25 @@ class RolesTableSeeder extends Seeder
         Role::create([
             'name' => 'Creator_qcs'
         ]);
+        //til
+        Role::create([
+            'name' => 'Creator_yarn'
+        ]);
+        Role::create([
+            'name' => 'Creator_grey'
+        ]);
+        Role::create([
+            'name' => 'Editor_fabrics'
+        ]);
+        Role::create([
+            'name' => 'Creator_fabrics'
+        ]);
+        Role::create([
+            'name' => 'Creator_trim'
+        ]);
+        Role::create([
+            'name' => 'Editor_garments'
+        ]);
         
     }
 }
