@@ -44,7 +44,6 @@
                                 @can('Admin')
                                     <x-backend.form.anchor :href="route('cpbs.create')" type="create" />
                                 @endcan
-                                {{-- <x-backend.form.anchor :href="route('cpbs.create')" type="create" /> --}}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -77,7 +76,7 @@
                                                 <td>{{ $cpb->remarks }}</td>
                                                 <td>
 
-                                                    @can('Admin')
+                                                   @can('Admin')
                                                         <x-backend.form.anchor :href="route('cpbs.edit', ['cpb' => $cpb->id])" type="edit" />
                                                     @endcan
                                                     @can('Editor')
@@ -114,7 +113,6 @@
                                                                 Delete</button>
                                                         </form>
                                                     @endcan
-                                                    
                                                 </td>
                                             </tr>
                                         @endforeach

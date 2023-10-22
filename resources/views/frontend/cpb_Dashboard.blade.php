@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>CPB Production Dashboard</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -21,8 +21,11 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
     <!-- Bootstrap icon CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
 
     <!-- Custom CSS -->
     <style>
@@ -53,11 +56,12 @@
                 <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
                     <h2>CPB Production Dashboard</h2>
                 </div>
-                <div class="col-md-4 today-date text-light d-flex flex-column justify-content-center align-items-center">
-                        <strong>
-    Today's Date: <span id="currentDate"></span> <br>
-    Current Time: <span id="currentTime"></span>
-</strong>
+                <div
+                    class="col-md-4 today-date text-light d-flex flex-column justify-content-center align-items-center">
+                    <strong>
+                         Date: <span id="currentDate">{{ carbon\Carbon::now()->subDay()->format('M d, Y') }}</span> <br>
+                        Current Time: <span id="currentTime"></span>
+                    </strong>
 
 
 
@@ -79,34 +83,36 @@
 
 
         <div class="row">
-    <div class="col-md-4">
-        <div class="card mb-3 text-light" style="background: #0e6252; border: 1px solid #ffffff;">
-            <div class="card-body d-flex flex-column justify-content-center align-items-center"
-                style="height: 20vh">
-                <h2 class="card-text" style="font-size:2vw;"> Total Target (KG)</h2>
-                <h3 class="card-title" id="total_target_kg" style="font-size:5vw;">{{ $total_target_kg }}</h3>
+            <div class="col-md-4">
+                <div class="card mb-3 text-light" style="background: #0e6252; border: 1px solid #ffffff;">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center"
+                        style="height: 20vh">
+                        <h2 class="card-text" style="font-size:2vw;"> Total Target (KG)</h2>
+                        <h3 class="card-title" id="total_target_kg" style="font-size:5vw;">{{ $total_target_kg }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-3 text-light" style="background: #0e6252; border: 1px solid #ffffff;">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center"
+                        style="height: 20vh">
+                        <h2 class="card-title"style="font-size:2vw;"> Total Actual Production (KG)</h2>
+                        <h3 class="card-title" id="total_actual_production_kg" style="font-size:5vw;">
+                            {{ $total_actual_production_kg }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-3 text-light" style="background: #0e6252; border: 1px solid #ffffff;">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center"
+                        style="height: 20vh">
+                        <h2 class="card-title"style="font-size:2vw;">Total Achievement </h2>
+                        <h3 class="card-text" id="total_achievement" style="font-size:5vw;">{{ $total_achievement }} %
+                        </h3>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-3 text-light" style="background: #0e6252; border: 1px solid #ffffff;">
-            <div class="card-body d-flex flex-column justify-content-center align-items-center"
-                style="height: 20vh">
-                <h2 class="card-title"style="font-size:2vw;"> Total Actual Production (KG)</h2>
-                <h3 class="card-title" id="total_actual_production_kg"  style="font-size:5vw;">{{ $total_actual_production_kg }}</h3>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-3 text-light" style="background: #0e6252; border: 1px solid #ffffff;">
-            <div class="card-body d-flex flex-column justify-content-center align-items-center"
-                style="height: 20vh">
-                <h2 class="card-title"style="font-size:2vw;">Total Achievement </h2>
-                <h3 class="card-text" id="total_achievement" style="font-size:5vw;">{{ $total_achievement }} %</h3>
-            </div>
-        </div>
-    </div>
-</div>
         <!-- Cards will be dynamically added here -->
     </div>
 
@@ -122,13 +128,15 @@
                 url: '{{ route('get_cpbs') }}',
                 type: 'GET',
                 dataType: 'json',
-                data: {
-                    today: '{{ now()->format('Y-m-d') }}'
-                },
+
+               data: {
+        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+    },
+
                 success: function(response) {
                     // Get the current CPB data to show
                     var cpb = response[currentIndex];
-    console.log(cpb);
+                    console.log(cpb);
                     // Clear previous cards
                     $('#card-container').empty();
 
@@ -153,7 +161,8 @@
                         <div class="card text-light" style="background: #384268; border: 1px solid #ffffff;">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 20vh;">
                                 <h2 class="card-title" style="font-size:2vw;">Target(KG)</h2>
-                                <h2 class=" card-text " style="font-size:5vw;">` + cpb.target_kg + `</h2>
+                                <h2 class=" card-text " style="font-size:5vw;">` + cpb.target_kg.toString().replace(
+                            /\B(?=(\d{3})+(?!\d))/g, ',') + `</h2>
                                 
                             </div>
                         </div>
@@ -162,7 +171,8 @@
                         <div class="card text-light" style="` + cpb.style + `">
                             <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 20vh">
                                 <h2 class="card-title" style="font-size:2vw;">Actual(KG)</h2>
-                                <h2 class="card-text" style="font-size:5vw;">` + cpb.actual_production_kg + `</h2>
+                                <h2 class="card-text" style="font-size:5vw;">` + cpb.actual_production_kg.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + `</h2>
                                 
                             </div>
                         </div>
@@ -175,7 +185,8 @@
                         <div class="card text-light" style="background:#774F32; border: 1px solid #ffffff;" >
                             <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 28vh">
                                 <h2 class="card-title" style="font-size:2vw;">Variance (KG)</h2>
-                                <h3 class="card-text" style="font-size:5vw;` + cpb.arrow_icon + `">` + cpb.variance + ` </h3> 
+                                <h3 class="card-text" style="font-size:5vw;` + cpb.arrow_icon + `">` + cpb.variance
+                        .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ` </h3> 
                                 
                             </div>
                         </div>
@@ -213,54 +224,58 @@
 
 
 
-    // Function to update the current date and time
-    function updateDateTime() {
-        var currentDate = new Date().toLocaleDateString(undefined, {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-        var currentTime = new Date().toLocaleTimeString(undefined, {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+        // Function to update the current date and time
+        function updateDateTime() {
+            var currentDate = new Date().toLocaleDateString(undefined, {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            var currentTime = new Date().toLocaleTimeString(undefined, {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
 
-        document.getElementById('currentDate').textContent = currentDate;
-        document.getElementById('currentTime').textContent = currentTime;
-    }
+            // document.getElementById('currentDate').textContent = currentDate;
+            document.getElementById('currentTime').textContent = currentTime;
+        }
 
-    // Call the function to update the date and time immediately
-    updateDateTime();
+        // Call the function to update the date and time immediately
+        updateDateTime();
 
-    // Update the date and time every second (1000 milliseconds)
-    setInterval(updateDateTime, 1000);
+        // Update the date and time every second (1000 milliseconds)
+        setInterval(updateDateTime, 1000);
 
-    function updateTotalCardView() {
-        $.ajax({
-            url: '{{ route('getCPBs_total') }}',
-            type: 'GET',
-            dataType: 'json',
-            data: {
-                today: '{{ now()->format('Y-m-d') }}'
-            },
-            success: function(response) {
-                // Update the values of total_achievement, total_actual_production_kg, and total_achievement
-                $('#total_achievement').text(response.total_achievement);
-                $('#total_actual_production_kg').text(response.total_actual_production_kg);
-                $('#total_achievement').text('' + response.total_achievement + '%');
+        function updateTotalCardView() {
+            $.ajax({
+                url: '{{ route('getCPBs_total') }}',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+        'today': '{{ now()->sub(Carbon\CarbonInterval::seconds(24 * 60 * 60))->format('Y-m-d') }}'
+    },
+                success: function(response) {
+                    // Update the values of total_achievement, total_actual_production_kg, and total_achievement
+                    // $('#total_achievement').text(response.total_achievement);
+                    document.getElementById('total_target_kg').textContent = response.total_target_kg.toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    // $('#total_actual_production_kg').text(response.total_actual_production_kg);
+                    document.getElementById('total_actual_production_kg').textContent = response
+                        .total_actual_production_kg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    // $('#total_achievement').text('' + response.total_achievement + '%');
+                    document.getElementById('total_achievement').textContent = response.total_achievement + '%';
 
-            },
-            complete: function() {
-                // Refresh the card view every second
-                setTimeout(updateTotalCardView, 1000);
-            }
-        });
-    }
+                },
+                complete: function() {
+                    // Refresh the card view every second
+                    setTimeout(updateTotalCardView, 1000);
+                }
+            });
+        }
 
-    // Call the function to start updating the card view
-    updateTotalCardView();
-
-</script>
+        // Call the function to start updating the card view
+        updateTotalCardView();
+    </script>
 </body>
 
 </html>

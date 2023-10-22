@@ -14,7 +14,7 @@
 
 
     <x-backend.layouts.elements.errors />
-    <form action="{{ route('qcs.update', ['qc' => $qcs->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('qcs.update', ['qc' => $qcs->id]) }}" method="post" enctype="multipart/form-qcs">
 
 
         <div class="container-fluid">
@@ -24,12 +24,10 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="date">Date</label>
-                    <input name="date" type="date" value="{{ $qcs->date }}" class="form-control" readonly>
+                    <input name="date" type="date" value="{{ date('Y-m-d') }}" id="date" class="form-control" required>
                 </div>
                 <div class="col-md-6">
                     <label for="shift">Shift</label>
-                    {{-- <input type="text" name="shift" id="shift" class="form-control" value="{{ $qcs->shift }}"
-                        placeholder="Shift" required> --}}
                     <select name="shift" id="shift" class="form-control" required>
                         <option value="">Select Shift</option>
                         <option value="A" {{ $qcs->shift == 'A' ? 'selected' : '' }}>A</option>
@@ -86,7 +84,20 @@
                 </div>
             </div>
 
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            
+
+            <br>
+            <br>
+
+            <x-backend.form.saveButton>Save</x-backend.form.saveButton>
+
+
+
+        </div>
+
+    </form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
                 $(document).ready(function() {
                     $('#grade_a, #grade_b, #grade_c, #rejection').on('input', function() {
@@ -111,15 +122,4 @@
                     });
                 });
             </script>
-
-            <br>
-            <br>
-
-            <x-backend.form.saveButton>Save</x-backend.form.saveButton>
-
-        </div>
-
-    </form>
-
-
 </x-backend.layouts.master>

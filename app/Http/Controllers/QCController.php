@@ -12,14 +12,14 @@ class QCController extends Controller
     public function index()
     {
         $this->authorize('viewAny', QC::class); // Check if the user can view any QC
-        $qcs = QC::all();
+        $qcs = QC::latest()->get();
+        // dd($qcs);
         return view('backend.library.qcs.index', compact('qcs'));
     }
 
 
     public function create()
     {
-
         $this->authorize('create', QC::class); // Check if the user can create a QC
         $qcs = QC::all();
         return view('backend.library.qcs.create', compact('qcs'));
@@ -61,7 +61,6 @@ class QCController extends Controller
 
     public function show($id)
     {
-        
         $qcs = QC::findOrFail($id);
         $this->authorize('viewAny', $qcs); // Check if the user can view the specific QC
         return view('backend.library.qcs.show', compact('qcs'));
@@ -70,7 +69,6 @@ class QCController extends Controller
 
     public function edit($id)
     {
-        
         $qcs = QC::findOrFail($id);
         $this->authorize('update', $qcs); // Check if the user can update the specific qcs
         return view('backend.library.qcs.edit', compact('qcs'));
@@ -79,9 +77,7 @@ class QCController extends Controller
 
     public function update(Request $request, $id)
     {
-
-        $request->validate([
-            'date' => 'required',
+        $request->validate(['date' => 'required',
             'shift' => 'required',
             'grade_a' => 'required',
             'grade_b' => 'required',
@@ -93,6 +89,7 @@ class QCController extends Controller
         // Data update
         $qcs = QC::findOrFail($id);
         $this->authorize('update', $qcs); // Check if the user can update the specific qcs
+        // Data insert
         $qcs->date = $request->date;
         $qcs->shift = $request->shift;
         $qcs->grade_a = $request->grade_a;
@@ -112,7 +109,6 @@ class QCController extends Controller
 
     public function destroy($id)
     {
-     
         $qcs = QC::findOrFail($id);
         $this->authorize('delete', $qcs); // Check if the user can delete the specific qcs
 
@@ -123,53 +119,57 @@ class QCController extends Controller
 
     public function dashboard()
     {
-        $qcs = QC::whereDate('date', Carbon::today())->get();
+        $qcs = QC::whereDate('date',Carbon::yesterday())->get();
+        $total_grade_a = $qcs->sum('grade_a');
+        $total_grade_b = $qcs->sum('grade_b');
+        $total_grade_c = $qcs->sum('grade_c');
+        $total_rejection = $qcs->sum('rejection');
+        $total_check = $qcs->sum('total_check');
+        $total_qc_pass_qty = $qcs->sum('qc_pass_qty');
+        if($total_check == 0 || $total_check=='null')
+        {
+            $total_precentage_rejection = 0; 
+        }else{
+           $total_precentage_rejection = round($total_rejection / $total_check * 100, 2); 
+        }
+        
 
-        $total_target_kg = $qcs->sum('target_kg');
-        $total_actual_production_kg = $qcs->sum('actual_production_kg');
-        $total_achievement = ($total_actual_production_kg > 0) ?  round(($total_actual_production_kg / $total_target_kg) * 100, 2) : 0;
 
-        return view('frontend.cpb_Dashboard', compact('qcs', 'total_target_kg', 'total_actual_production_kg', 'total_achievement'));
+
+
+       
+        return view('frontend.qcs_Dashboard', compact('qcs', 'total_grade_a', 'total_grade_b', 'total_grade_c', 'total_rejection', 'total_check', 'total_qc_pass_qty', 'total_precentage_rejection'));
     }
 
-    public function getCPBs(Request $request)
+    public function getQCs(Request $request)
     {
         $today = $request->input('today');
         $qcs = QC::whereDate('date', $today)->get();
-
-        foreach ($qcs as $cpb) {
-            $cpb->variance = $cpb->target_kg - $cpb->actual_production_kg;
-            if ($cpb->variance < 0) {
-                $cpb->variance = -1 * $cpb->variance;
-            }
-            if ($cpb->actual_production_kg ==  $cpb->target_kg) {
-                $cpb->style = 'background:#384268; border: 1px solid #ffffff;';
-                $cpb->arrow_icon = 'color:#ffffff';
-            }
-            if ($cpb->actual_production_kg >  $cpb->target_kg) {
-                $cpb->style = 'background:#395d31; border: 1px solid #ffffff;';
-                $cpb->arrow_icon = ' color:#FFFF00';
-            }
-            if ($cpb->actual_production_kg <  $cpb->target_kg) {
-                $cpb->style = 'background:#ff0000; border: 1px solid #ffffff;';
-                $cpb->arrow_icon = 'color:#ff0000';
-            }
-        }
-
+      
         return response()->json($qcs);
     }
 
-    public function getCPBs_total(Request $request)
+    public function getQCs_total(Request $request)
     {
         $today = $request->input('today');
         $qcs = QC::whereDate('date', $today)->get();
-        $total_target_kg = $qcs->sum('target_kg');
-        $total_actual_production_kg = $qcs->sum('actual_production_kg');
-        $total_achievement = ($total_actual_production_kg > 0) ?  round(($total_actual_production_kg / $total_target_kg) * 100, 2) : 0;
+        $total_grade_a = $qcs->sum('grade_a');
+        $total_grade_b = $qcs->sum('grade_b');
+        $total_grade_c = $qcs->sum('grade_c');
+        $total_rejection = $qcs->sum('rejection');
+        $total_check = $qcs->sum('total_check');
+        $total_qc_pass_qty = $qcs->sum('qc_pass_qty');
+        $total_precentage_rejection = round($total_rejection / $total_check * 100, 2);
+       
         $qcs = array(
-            'total_target_kg' => $total_target_kg,
-            'total_actual_production_kg' => $total_actual_production_kg,
-            'total_achievement' => $total_achievement,
+            'total_grade_a' => $total_grade_a,
+            'total_grade_b' => $total_grade_b,
+            'total_grade_c' => $total_grade_c,
+            'total_rejection' => $total_rejection,
+            'total_check' => $total_check,
+            'total_qc_pass_qty' => $total_qc_pass_qty,
+            'total_precentage_rejection' => $total_precentage_rejection,
+            
         );
         return response()->json($qcs);
     }

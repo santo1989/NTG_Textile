@@ -1,5 +1,5 @@
 <x-backend.layouts.master>
-    <x-slot name="pageTitle">
+        <x-slot name="pageTitle">
         Knitting QC Data List
     </x-slot>
 

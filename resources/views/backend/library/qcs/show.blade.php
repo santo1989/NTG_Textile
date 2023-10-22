@@ -32,12 +32,49 @@
                         <div class="card-body">
                             {{-- division Table goes here --}}
                             <table class="table table-bordered">
-                                <tr>
-                                    <th>Name</th>
-                                    <td>{{ $qcs->name }}</td>
-                                </tr>
+                               
+                                    <tr>
+                                        <th>Date</th>
+                                        <td>{{ $qcs->date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Shift</th>
+                                        <td>{{ $qcs->shift }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Grade A</th>
+                                        <td>{{ $qcs->grade_a }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Grade B</th> 
+                                        <td>{{ $qcs->grade_b }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Grade C</th>
+                                        <td>{{ $qcs->grade_c }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Rejection</th>
+                                        <td>{{ $qcs->rejection }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Rejection %</th>
+                                        <td>{{ $qcs->precentage_rejection }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Check</th> 
+                                        <td>{{ $qcs->total_check }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Qc Pass Qty</th>
+                                        <td>{{ $qcs->qc_pass_qty }}</td>
+                                    </tr>
+                                                
 
                             </table>
+                            <div class="form-group">
+                                <a href="{{ route('qcs.index') }}" class="btn btn-outline-secondary">Back</a>
+                            </div>
 
                         </div>
                         <!-- /.card-body -->

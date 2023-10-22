@@ -12,9 +12,10 @@ class CPBController extends Controller
     public function index()
     {
         $this->authorize('viewAny', CPB::class); // Check if the user can view any CPBs
-        $cpbs = CPB::all();
+        $cpbs = CPB::latest()->get();
         return view('backend.library.cpbs.index', compact('cpbs'));
     }
+
 
     public function create()
     {
@@ -22,6 +23,7 @@ class CPBController extends Controller
         $cpbs = CPB::all();
         return view('backend.library.cpbs.create', compact('cpbs'));
     }
+
 
     public function store(Request $request)
     {
@@ -33,6 +35,7 @@ class CPBController extends Controller
             'actual_production_kg' => 'required',
         ]);
 
+        $cpbs = CPB::all();
         // Data insert
         $cpbs = new CPB;
         $cpbs->date = $request->date;
@@ -48,6 +51,7 @@ class CPBController extends Controller
         return redirect()->route('cpbs.index');
     }
 
+
     public function show($id)
     {
         $cpbs = CPB::findOrFail($id);
@@ -55,12 +59,14 @@ class CPBController extends Controller
         return view('backend.library.cpbs.show', compact('cpbs'));
     }
 
+
     public function edit($id)
     {
         $cpbs = CPB::findOrFail($id);
         $this->authorize('update', $cpbs); // Check if the user can update the specific CPB
         return view('backend.library.cpbs.edit', compact('cpbs'));
     }
+
 
     public function update(Request $request, $id)
     {
@@ -71,10 +77,10 @@ class CPBController extends Controller
             'actual_production_kg' => 'required',
         ]);
 
-        $cpbs = CPB::findOrFail($id);
-        $this->authorize('update', $cpbs); // Check if the user can update the specific CPB
 
         // Data update
+        $cpbs = CPB::findOrFail($id);
+        $this->authorize('update', $cpbs); // Check if the user can update the specific CPB
         $cpbs->date = $request->date;
         // convert to uppercase all letters
         $cpbs->mc_no = strtoupper($request->mc_no);
@@ -88,6 +94,7 @@ class CPBController extends Controller
         return redirect()->route('cpbs.index');
     }
 
+
     public function destroy($id)
     {
         $cpbs = CPB::findOrFail($id);
@@ -95,20 +102,23 @@ class CPBController extends Controller
 
         $cpbs->delete();
 
-        return redirect()->route('cpbs.index')->withMessage('CPB and related data are deleted successfully!');
+        return redirect()->route('cpbs.index')->withMessage('CPB and related data  are deleted successfully!');
     }
-
 
     public function dashboard()
     {
-        $cpbs = CPB::whereDate('date', Carbon::today())->get();
+        $yesterday = Carbon::now()->subDay();
+        $cpbs = CPB::whereDate('date', $yesterday)->get();
+
+        // dd($cpbs);
 
         $total_target_kg = $cpbs->sum('target_kg');
         $total_actual_production_kg = $cpbs->sum('actual_production_kg');
-        $total_achievement = ($total_actual_production_kg > 0) ?  round(( $total_actual_production_kg / $total_target_kg) * 100,2) : 0;
+        $total_achievement = ($total_actual_production_kg > 0) ? round(($total_actual_production_kg / $total_target_kg) * 100, 2) : 0;
 
         return view('frontend.cpb_Dashboard', compact('cpbs', 'total_target_kg', 'total_actual_production_kg', 'total_achievement'));
     }
+
 
     public function getCPBs(Request $request)
     {
