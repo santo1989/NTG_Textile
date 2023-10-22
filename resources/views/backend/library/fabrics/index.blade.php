@@ -1,0 +1,180 @@
+<x-backend.layouts.master>
+    <x-slot name="pageTitle">
+        Fabric Information Board
+    </x-slot>
+
+    <x-slot name='breadCrumb'>
+        <x-backend.layouts.elements.breadcrumb>
+            <x-slot name="pageHeader"> Fabric Information Board </x-slot>
+
+            {{-- <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('fabrics.index') }}">Trims & Accessories Store  Information</a></li> --}}
+        </x-backend.layouts.elements.breadcrumb>
+    </x-slot>
+
+    <section class="content">
+        <div class="container-fluid">
+            @if (is_null($fabrics) || empty($fabrics))
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <h1 class="text-danger"> <strong>Currently No Information Available!</strong> </h1>
+                    </div>
+                </div>
+            @else
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        <span class="close" data-dismiss="alert">&times;</span>
+                        <strong>{{ session('message') }}.</strong>
+                    </div>
+                @endif
+
+                <x-backend.layouts.elements.errors />
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+
+                                @can('Creator_fabrics')
+                                    <x-backend.form.anchor :href="route('fabrics.create')" type="create" />
+                                @endcan
+                                @can('Editor_garments')
+                                    <x-backend.form.anchor :href="route('fabrics.create')" type="create" />
+                                @endcan
+                                @can('Admin')
+                                    <x-backend.form.anchor :href="route('fabrics.create')" type="create" />
+                                @endcan
+                                {{-- <x-backend.form.anchor :href="route('fabrics.create')" type="create" /> --}}
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                {{-- fabric Table goes here --}}
+
+                                <table id="datatablesSimple" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Sl#</th>
+                                            <th>Date</th>
+                                            <th>Buyer Name</th>
+                                            <th>Style/Or No</th>
+                                            <th>Order Qty Pcs</th>
+                                            <th>Fabric Type</th>
+                                            <th>Booking Qty (Kg)</th>
+                                            <th>Received Qty (Kg)</th>
+                                            <th>Received Balance Qty (Kg)</th>
+                                            <th>Dlv Cutting(kgs)</th>
+                                            <th>Closing Stock (Kgs)</th>
+                                            <th>Actions</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $sl=0 @endphp
+                                        @foreach ($fabrics as $fabric)
+                                            <tr>
+                                                <td>{{ ++$sl }}</td>
+                                                <td>{{ $fabric->date }}</td>
+                                                <td>{{ $fabric->buyer_name }}</td>
+                                                <td>{{ $fabric->style_or_no }}</td>
+                                                <td>{{ $fabric->order_qty }}</td>
+                                                <td>{{ $fabric->fabric_type }}</td>
+                                                <td>{{ $fabric->booking_qty }}</td>
+                                                <td>{{ $fabric->receive_qty }}</td>
+                                                <td>{{ $fabric->rcv_bal_qty }}</td>
+                                                <td>{{ $fabric->dlv_cutting }}</td>
+                                                <td>{{ $fabric->closing_stock }}</td>
+                                                <td>
+
+                                                    @can('Admin')
+                                                        <x-backend.form.anchor :href="route('fabrics.edit', [
+                                                            'fabric' => $fabric->id,
+                                                        ])" type="edit" />
+                                                    @endcan
+                                                    @can('Editor_garments')
+                                                        <x-backend.form.anchor :href="route('fabrics.edit', [
+                                                            'fabric' => $fabric->id,
+                                                        ])" type="edit" />
+                                                    @endcan
+                                                    {{-- <x-backend.form.anchor :href="route('fabrics.show', [
+                                                        'fabric' => $fabric->id,
+                                                    ])" type="show" /> --}}
+
+                                                    @can('Admin')
+                                                        <form style="display:inline"
+                                                            action="{{ route('fabrics.destroy', ['fabric' => $fabric->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <button
+                                                                onclick="return confirm('Are you sure want to delete ?')"
+                                                                class="btn btn-outline-danger my-1 mx-1 inline btn-sm"
+                                                                type="submit"><i class="bi bi-trash"></i>
+                                                                Delete</button>
+                                                        </form>
+                                                    @endcan
+
+                                                    @can('Editor_garments')
+                                                        <form style="display:inline"
+                                                            action="{{ route('fabrics.destroy', ['fabric' => $fabric->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <button
+                                                                onclick="return confirm('Are you sure want to delete ?')"
+                                                                class="btn btn-outline-danger my-1 mx-1 inline btn-sm"
+                                                                type="submit"><i class="bi bi-trash"></i>
+                                                                Delete</button>
+                                                        </form>
+                                                    @endcan
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    @endif
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmDelete(url) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form if the user confirms
+                    let form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = url;
+                    form.innerHTML = `@csrf @method('delete')`;
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        }
+    </script>
+
+</x-backend.layouts.master>
