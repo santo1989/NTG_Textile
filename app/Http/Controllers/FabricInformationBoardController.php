@@ -4,15 +4,120 @@ namespace App\Http\Controllers;
 
 use App\Models\FabricInformationBoard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; 
+use Carbon\Carbon; 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 class FabricInformationBoardController extends Controller
 {
     public function index()
     {
         $this->authorize('viewAny', FabricInformationBoard::class); // Check if the user can view any FabricInformationBoard
-        $fabrics = FabricInformationBoard::all();
-        return view('backend.library.fabrics.index', compact('fabrics'));
+        $fabricsCollection = FabricInformationBoard::latest(); // Show the newest FabricInformationBoard first
+        $search_fabrics = null; // Initialize the variable
+
+        //Check if the buyer_name fields are filled
+        if (request('buyer_name')) {
+            $fabricsCollection = $fabricsCollection->where('buyer_name', 'LIKE', '%' . request('buyer_name') . '%');
+            $search_fabrics = $fabricsCollection->get();
+            session(['search_fabrics' => $search_fabrics]);
+        }
+
+        //Check if the style_or_no fields are filled
+        if (request('style_or_no')) {
+            $fabricsCollection = $fabricsCollection->where('style_or_no', 'LIKE', '%' . request('style_or_no') . '%');
+            $search_fabrics = $fabricsCollection->get();
+            session(['search_fabrics' => $search_fabrics]);
+        }
+
+        //Check if the color_name fields are filled
+        if (request('color_name')) {
+            $fabricsCollection = $fabricsCollection->where('color_name', 'LIKE', '%' . request('color_name') . '%');
+            $search_fabrics = $fabricsCollection->get();
+            session(['search_fabrics' => $search_fabrics]);
+        }
+
+        //Check if the fabric_type fields are filled
+        if (request('fabric_type')) {
+            $fabricsCollection = $fabricsCollection->where('fabric_type', 'LIKE', '%' . request('fabric_type') . '%');
+            $search_fabrics = $fabricsCollection->get();
+            session(['search_fabrics' => $search_fabrics]);
+        }
+
+        // Check if the parts fields are filled
+        if (request('parts')) {
+            $fabricsCollection = $fabricsCollection->where('parts', 'LIKE', '%' . request('parts') . '%');
+            $search_fabrics = $fabricsCollection->get();
+            session(['search_fabrics' => $search_fabrics]);
+        }
+
+
+        // Check if the entry_date fields are filled
+        if (request('entry_date_start') && request('entry_date_end')) {
+            $fabricsCollection = $fabricsCollection->whereBetween('date', [
+                request('entry_date_start'),
+                request('entry_date_end')
+            ]);
+            $search_fabrics = $fabricsCollection->get();
+            session(['search_fabrics' => $search_fabrics]);
+        }
+
+        //if multiple search
+        if (request('buyer_name') && request('style_or_no') && request('color_name') && request('fabric_type') && request('entry_date_start') && request('entry_date_end') && request('parts')) {
+            $fabricsCollection = $fabricsCollection->where('buyer_name', 'LIKE', '%' . request('buyer_name') . '%')
+            ->where('style_or_no', 'LIKE', '%' . request('style_or_no') . '%')
+            ->where('color_name', 'LIKE', '%' . request('color_name') . '%')
+            ->where('fabric_type', 'LIKE', '%' . request('fabric_type') . '%')
+            ->where('parts', 'LIKE', '%' . request('parts') . '%')
+            ->whereBetween('date', [
+                request('entry_date_start'),
+                request('entry_date_end')
+            ]);
+            $search_fabrics = $fabricsCollection->get();
+            session(['search_fabrics' => $search_fabrics]);
+        }
+
+         
+
+        $fabrics = $fabricsCollection->paginate(1000);
+
+        // Check if export format is requested
+        $format = strtolower(request('export_format'));
+
+        if ($format === 'xlsx') {
+            // Store the necessary values in the session
+            session(['export_format' => $format]);
+
+            // Retrieve the values from the session
+            $format = session('export_format');
+            $search_fabrics = session('search_fabrics');
+
+            if ($search_fabrics == null) {
+                return redirect()->route('fabrics.index')->withErrors('First search the data then export');
+            } else {
+                $data = compact('search_fabrics');
+                // Generate the view content based on the requested format
+                $viewContent = View::make('backend.download.fabrics_excel', $data)->render();
+
+                // Set appropriate headers for the file download
+                $filename = 'fabrics' . '_' . Carbon::now()->format('Y_m_d') . '_' . time() . '.xls';
+                $headers = [
+                    'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+                    'Content-Transfer-Encoding' => 'binary',
+                    'Cache-Control' => 'must-revalidate',
+                    'Pragma' => 'public',
+                    'Content-Length' => strlen($viewContent)
+                ];
+
+                // Use the "binary" option in response to ensure the file is downloaded correctly
+                return response()->make($viewContent, 200, $headers);
+            }
+        }
+        return view('backend.library.fabrics.index', compact('fabrics', 'search_fabrics')); // Send the $fabrics collection to the view
     }
 
 

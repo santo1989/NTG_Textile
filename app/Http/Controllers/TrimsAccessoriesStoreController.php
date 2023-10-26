@@ -3,16 +3,122 @@
 namespace App\Http\Controllers;
 
 use App\Models\TrimsAccessoriesStore;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;  
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
+
 
 class TrimsAccessoriesStoreController extends Controller
 {
+    public function data()
+    {
+        $trims = TrimsAccessoriesStore::all();
+        return response()->json($trims);
+    }
+
     public function index()
     {
         $this->authorize('viewAny', TrimsAccessoriesStore::class); // Check if the user can view any TrimsAccessoriesStore
-        $trims = TrimsAccessoriesStore::all();
-        return view('backend.library.trims.index', compact('trims'));
+        // $trims = TrimsAccessoriesStore::all();
+        // return view('backend.library.trims.index', compact('trims'));
+
+        $trimCollection = TrimsAccessoriesStore::latest();
+        $search_trims = null; // Initialize the variable
+
+        //Check if the buyer_name fields are filled
+        if (request('buyer_name')) {
+            $trimCollection = $trimCollection->where('buyer_name', 'LIKE', '%' . request('buyer_name') . '%');
+            $search_trims = $trimCollection->get();
+            session(['search_trims' => $search_trims]);
+        }
+
+        //Check if the style_or_no fields are filled
+        if (request('style_or_no')) {
+            $trimCollection = $trimCollection->where('style_or_no', 'LIKE', '%' . request('style_or_no') . '%');
+            $search_trims = $trimCollection->get();
+            session(['search_trims' => $search_trims]);
+        }
+
+        //Check if the color_name fields are filled
+        if (request('color_name')) {
+            $trimCollection = $trimCollection->where('color_name', 'LIKE', '%' . request('color_name') . '%');
+            $search_trims = $trimCollection->get();
+            session(['search_trims' => $search_trims]);
+        }
+
+        //Check if the item_no fields are filled
+        if (request('item_no')) {
+            $trimCollection = $trimCollection->where('item_no', 'LIKE', '%' . request('item_no') . '%');
+            $search_trims = $trimCollection->get();
+            session(['search_trims' => $search_trims]);
+        }
+
+
+        // Check if the entry_date fields are filled
+        if (request('entry_date_start') && request('entry_date_end')) {
+            $trimCollection = $trimCollection->whereBetween('date', [
+                request('entry_date_start'),
+                request('entry_date_end')
+            ]);
+            $search_trims = $trimCollection->get();
+            session(['search_trims' => $search_trims]);
+        }
+
+        //if multiple search
+        if (request('buyer_name') && request('style_or_no') && request('color_name') && request('item_no') && request('entry_date_start') && request('entry_date_end')) {
+            $trimCollection = $trimCollection->where('buyer_name', 'LIKE', '%' . request('buyer_name') . '%')
+                ->where('style_or_no', 'LIKE', '%' . request('style_or_no') . '%')
+                ->where('color_name', 'LIKE', '%' . request('color_name') . '%')
+                ->where('item_no', 'LIKE', '%' . request('item_no') . '%')
+                ->whereBetween('date', [
+                    request('entry_date_start'),
+                    request('entry_date_end')
+                ]);
+            $search_trims = $trimCollection->get();
+            session(['search_trims' => $search_trims]);
+        }
+
+        $trims = $trimCollection->paginate(1000);
+
+        // Check if export format is requested
+        $format = strtolower(request('export_format'));
+
+        if ($format === 'xlsx') {
+            // Store the necessary values in the session
+            session(['export_format' => $format]);
+
+            // Retrieve the values from the session
+            $format = session('export_format');
+            $search_trims = session('search_trims');
+
+            if ($search_trims == null) {
+                return redirect()->route('trims.index')->withErrors('First search the data then export');
+            } else {
+                $data = compact('search_trims');
+                // Generate the view content based on the requested format
+                $viewContent = View::make('backend.download.trims_excel', $data)->render();
+
+                // Set appropriate headers for the file download
+                $filename = 'trims' . '_' . Carbon::now()->format('Y_m_d') . '_' . time() . '.xls';
+                $headers = [
+                    'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+                    'Content-Transfer-Encoding' => 'binary',
+                    'Cache-Control' => 'must-revalidate',
+                    'Pragma' => 'public',
+                    'Content-Length' => strlen($viewContent)
+                ];
+
+                // Use the "binary" option in response to ensure the file is downloaded correctly
+                return response()->make($viewContent, 200, $headers);
+            }
+        }
+        return view('backend.library.trims.index', compact('trims', 'search_trims'));
+
     }
 
 

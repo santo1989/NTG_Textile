@@ -101,9 +101,13 @@ Route::middleware('auth')->group(function () {
 
     //yarns
     Route::resource('yarns', YarnDashboardController::class);
+    Route::get('/yarns-download', [YarnDashboardController::class, 'download'])->name('yarns.download'); //download excel file
+
 
     //trims
     Route::resource('trims', TrimsAccessoriesStoreController::class);
+    Route::get('/data', [TrimsAccessoriesStoreController::class, 'data'])->name('trims.data');
+ //download excel file
 
     //fabrics
     Route::resource('fabrics', FabricInformationBoardController::class);

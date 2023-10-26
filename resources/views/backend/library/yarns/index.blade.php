@@ -34,8 +34,102 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-3 text-center">
+                                        <table
+                                            class="table table-borderless table-responsive text-center text-light font-weight-bold">
+                                            <tr>
+                                                <div class="form-group">
+                                                    <td>
+                                                        @can('Creator_yarn')
+                                                            {{-- <x-backend.form.anchor :href="route('yarns.create')" type="create" /> --}}
+                                                            <a href="{{ route('yarns.create') }}"
+                                                                class="btn btn-outline-success float-right"> <i
+                                                                    class="fa fa-plus-circle" style="font-size:24px"></i>
+                                                                Create</a>
+                                                        @endcan
+                                                        @can('Editor_fabrics')
+                                                            <a href="{{ route('yarns.create') }}"
+                                                                class="btn btn-outline-success float-right"> <i
+                                                                    class="fa fa-plus-circle" style="font-size:24px"></i>
+                                                                Create</a>
+                                                            {{-- <x-backend.form.anchor :href="route('yarns.create')" type="create" /> --}}
+                                                        @endcan
+                                                        @can('Admin')
+                                                            <a href="{{ route('yarns.create') }}"
+                                                                class="btn btn-outline-success float-right"> <i
+                                                                    class="fa fa-plus-circle" style="font-size:24px"></i>
+                                                                Create</a>
+                                                            {{-- <x-backend.form.anchor :href="route('yarns.create')" type="create" /> --}}
+                                                        @endcan
+                                                        {{-- <a href="{{ route('yarns.index') }}" class="btn btn-success float-right"> <i
+                                        class="fas fa-file-excel"></i> Excel Download</a> --}}
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <form method="GET" action="{{ route('yarns.index') }}">
+                                            @csrf
+                                            <table
+                                                class="table table-borderless table-responsive text-center  font-weight-bold">
+                                                <tr>
+                                                    <div class="form-group">
+                                                        <td>Date:</td>
+                                                        <td>
+                                                            <input type="date" name="entry_date_start"
+                                                                id="entry_date_start" class="form-control">
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <input type="date" name="entry_date_end"
+                                                                id="entry_date_end" class="form-control">
+                                                        </td>
+                                                    </div>
+                                                    <td>
+                                                        <button class="btn btn-outline-info btn-sm"
+                                                            onclick="validateForm()"><i class="fa fa-search"></i>
+                                                            Search</button>
 
-                                @can('Creator_yarn')
+
+
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="{{ route('yarns.index') }}"
+                                                            class="btn btn-outline-danger btn-sm"><i
+                                                                class="fas fa-refresh"></i> Reset</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 text-md-end">
+                                        @if ($search_yarn == !null)
+                                            <form method="GET" action="{{ route('yarns.index') }}">
+                                                @csrf
+
+                                                <div class="form-group" id="hide_div">
+                                                    <label for="export_format">Export Format:</label>
+                                                    <select name="export_format" id="export_format"
+                                                        class="form-control">
+                                                        <option value="xlsx">Excel (XLS)</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-outline-info">
+                                                    <i class="fa fa-file-excel" aria-hidden="true"></i> Export
+                                                </button>
+
+                                            </form>
+                                        @endif
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {{--   @can('Creator_yarn')
                                     <x-backend.form.anchor :href="route('yarns.create')" type="create" />
                                 @endcan
                                 @can('Editor_fabrics')
@@ -44,8 +138,9 @@
                                 @can('Admin')
                                     <x-backend.form.anchor :href="route('yarns.create')" type="create" />
                                 @endcan
-                                {{-- <x-backend.form.anchor :href="route('yarns.create')" type="create" /> --}}
-                            </div>
+                                <a href="{{ route('yarns.index') }}" class="btn btn-success float-right"> <i
+                                        class="fas fa-file-excel"></i> Excel Download</a>
+                            </div> --}}
                             <!-- /.card-header -->
                             <div class="card-body">
                                 {{-- yarn Table goes here --}}
@@ -172,6 +267,22 @@
                     form.submit();
                 }
             });
+        }
+    </script>
+
+    <script>
+        function validateForm() {
+            var entry_date_start = document.getElementById('entry_date_start').value;
+            var entry_date_end = document.getElementById('entry_date_end').value;
+            if (entry_date_start == '' || entry_date_end == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Select Date Range!',
+                })
+            } else {
+                document.getElementById('search_form').submit();
+            }
         }
     </script>
 

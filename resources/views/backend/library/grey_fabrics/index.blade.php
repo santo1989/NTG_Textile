@@ -34,8 +34,94 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-3 text-center">
+                                        <table
+                                            class="table table-borderless table-responsive text-center text-light font-weight-bold">
+                                            <tr>
+                                                <div class="form-group">
+                                                    <td>
+                                                        @can('Creator_grey')
+                                                            <a href="{{ route('grey_fabrics.create') }}"
+                                                                class="btn btn-outline-success float-right"> <i
+                                                                    class="fa fa-plus-circle" style="font-size:24px"></i>
+                                                                Create</a>
+                                                        @endcan
+                                                        @can('Editor_fabrics')
+                                                            <a href="{{ route('grey_fabrics.create') }}"
+                                                                class="btn btn-outline-success float-right"> <i
+                                                                    class="fa fa-plus-circle" style="font-size:24px"></i>
+                                                                Create</a>
+                                                        @endcan
+                                                        @can('Admin')
+                                                            <a href="{{ route('grey_fabrics.create') }}"
+                                                                class="btn btn-outline-success float-right"> <i
+                                                                    class="fa fa-plus-circle" style="font-size:24px"></i>
+                                                                Create</a>
+                                                        @endcan
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <form method="GET" action="{{ route('grey_fabrics.index') }}">
+                                            @csrf
+                                            <table
+                                                class="table table-borderless table-responsive text-center  font-weight-bold">
+                                                <tr>
+                                                    <div class="form-group">
+                                                        <td>Date:</td>
+                                                        <td>
+                                                            <input type="date" name="entry_date_start"
+                                                                id="entry_date_start" class="form-control">
+                                                        </td>
+                                                        <td>-</td>
+                                                        <td>
+                                                            <input type="date" name="entry_date_end"
+                                                                id="entry_date_end" class="form-control">
+                                                        </td>
+                                                    </div>
+                                                    <td>
+                                                        <button class="btn btn-outline-info btn-sm"
+                                                            onclick="validateForm()"><i class="fa fa-search"></i>
+                                                            Search</button>
 
-                                @can('Creator_grey')
+
+
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="{{ route('grey_fabrics.index') }}"
+                                                            class="btn btn-outline-danger btn-sm"><i
+                                                                class="fas fa-refresh"></i> Reset</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </form>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 text-md-end">
+                                        @if ($search_grey == !null)
+                                            <form method="GET" action="{{ route('grey_fabrics.index') }}">
+                                                @csrf
+
+                                                <div class="form-group" id="hide_div">
+                                                    <label for="export_format">Export Format:</label>
+                                                    <select name="export_format" id="export_format"
+                                                        class="form-control">
+                                                        <option value="xlsx">Excel (XLS)</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-outline-info">
+                                                    <i class="fa fa-file-excel" aria-hidden="true"></i> Export
+                                                </button>
+
+                                            </form>
+                                        @endif
+                                    </div>
+                                </div>
+                                {{--  @can('Creator_grey')
                                     <x-backend.form.anchor :href="route('grey_fabrics.create')" type="create" />
                                 @endcan
                                 @can('Editor_fabrics')
@@ -44,7 +130,7 @@
                                 @can('Admin')
                                     <x-backend.form.anchor :href="route('grey_fabrics.create')" type="create" />
                                 @endcan
-                                {{-- <x-backend.form.anchor :href="route('grey_fabrics.create')" type="create" /> --}}
+                                <x-backend.form.anchor :href="route('grey_fabrics.create')" type="create" /> --}}
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -93,7 +179,9 @@
                                                             'grey_fabric' => $grey_fabric->id,
                                                         ])" type="edit" />
                                                     @endcan
-                                                    <x-backend.form.anchor :href="route('grey_fabrics.show', ['grey_fabric' => $grey_fabric->id])" type="show" />
+                                                    <x-backend.form.anchor :href="route('grey_fabrics.show', [
+                                                        'grey_fabric' => $grey_fabric->id,
+                                                    ])" type="show" />
 
                                                     @can('Admin')
                                                         <form style="display:inline"
