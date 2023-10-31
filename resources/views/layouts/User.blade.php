@@ -6,20 +6,20 @@
             @endphp !
         </h3> --}}
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
               @can('Editor_fabrics')
-                  <iframe src="{{ route('grey_dashboard') }}" width="90%" height="600px" frameborder="0"></iframe>
-                  <iframe src="{{ route('yarn_dashboard') }}" width="90%" height="600px" frameborder="0"></iframe>
+                  <iframe src="{{ route('common_dashboard') }}" width="99%" height="720px" frameborder="0"></iframe>
+                  <!-- <iframe src="{{ route('yarn_dashboard') }}" width="90%" height="600px" frameborder="0"></iframe> -->
               @endcan
 
               @can('Creator_grey')
-                  <iframe src="{{ route('grey_dashboard') }}" width="90%" height="600px" frameborder="0"></iframe>
+                  <iframe src="{{ route('grey_dashboard') }}" width="99%" height="720px" frameborder="0"></iframe>
               @endcan
 
               @can('Creator_yarn')
-                   <iframe src="{{ route('yarn_dashboard') }}" width="90%" height="600px" frameborder="0"></iframe>
+                   <iframe src="{{ route('yarn_dashboard') }}" width="99%" height="720px" frameborder="0"></iframe>
               @endcan
 
 

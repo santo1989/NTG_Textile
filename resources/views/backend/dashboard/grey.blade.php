@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                     <h1 style="font-size: 4.5rem;"> Tosrifa Industries Ltd. </h1>
-                    <h5> 121/1, Beraierchala, Sreepur, Gazipur </h5>
+                    <h5> 121/1, Berider Chala, Sreepur, Gazipur </h5>
                      
                     <p class="text-bold" style="font-size: 2rem;"><strong> Wearhouse Stock Grey Fabrics Information Dashboard</strong></h3>
                 </div>
@@ -147,20 +147,25 @@
 
             <!-- 3rd Row -->
             {{-- <div class=" mb-3" id="card-container"> --}}
-            <table class="table table-bordered  text-center no-wrap text-light pt-2" style="boder: #454545">
-                <thead style="background-color:#183D3D ">
-                    <tr style="font-size: 2.8rem;">
+                
+           
+            <table class="table table-bordered   no-wrap text-light pt-2" style="boder: #454545">
+             <!-- <span id="week-number-row" style="text-align: left">
+    <p>Week Number: <span id="week-number"></span></p>
+                                    </span> -->
+            <thead style="background-color:#183D3D ">
+                    <tr style="font-size: 2.5vw;" class="text-center" >
                         <!-- <th>Sl#</th> -->
                         <th>Date</th>
-                        <th>Opening Qty</th>
-                        <th>Received Qty</th>
-                        <th>Received Qumilative Qty</th>
-                        <th>Issue Qty</th>
-                        <th>Issue Qumilative Qty</th>
+                        <th>Opening</th>
+                        <th>Received</th>
+                        <th>Received Qumilative</th>
+                        <th>Issue</th>
+                        <th>Issue Qumilative</th>
                         <th>Stock in Hand</th>
                     </tr>
                 </thead>
-                <tbody style="font-size: 2.5rem;">
+                <tbody style="font-size: 2.3vw;" class="text-right">
                     @php $sl=0 @endphp
                     @foreach ($grey_fabrics as $grey_fabric)
                         <tr>
@@ -188,8 +193,9 @@
                         </tr>
                     @endforeach
                 </tbody>
+               
             </table>
-
+ 
 
             <!-- Cards will be dynamically added here -->
         </div>
@@ -198,6 +204,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function() {
+                function fetchDataAndDisplay() {
                 $.ajax({
                     url: '{{ route('get_grey_dashboard') }}',
                     type: 'GET',
@@ -211,18 +218,33 @@
                     },
                     error: function(xhr, status, error) {
                         console.log('Error:', error);
-                    }
-                });
-            });
+                    },
+        });
+    }
+
 
             var batchSize = 7; // Number of rows to display in each batch
             var currentIndex = 0; // Index to keep track of the current batch
             var data = []; // Array to store the data
 
+             // Function to calculate the week number from a date
+    function getWeekNumber(date) {
+        const d = new Date(date);
+        d.setHours(0, 0, 0, 0);
+        d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+        const yearStart = new Date(d.getFullYear(), 0, 1);
+        const weekNumber = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+        return weekNumber;
+    }
+
             function displayNextBatch() {
                 if (currentIndex >= data.length) {
-                    // All data has been displayed
-                    return;
+                    // All data has been displayed then agin call ajax
+                   // All data has been displayed, wait for 10 seconds, then fetch new data
+            setTimeout(function () {
+                fetchDataAndDisplay();
+            }, 10000);
+            return;
                 }
 
                 var end = Math.min(currentIndex + batchSize, data.length);
@@ -234,7 +256,7 @@
                 $.each(batchData, function(key, value) {
                     var date = new Date(value.date);
                     var day = date.getDay();
-                    var tr = `<tr style="background-color: ${day === 5 ? 'red' : 'transparent'}">  `;
+                    var tr = `<tr style="background-color: ${day === 5 ? '#ef8354' : 'transparent'}">  `;
 
                     
                     tr +=
@@ -249,13 +271,22 @@
 
                     tr += `<td>${numberWithCommas(value.received_qty)}</td>
             <td>${numberWithCommas(value.received_qumilative_qty)}</td>
-            <td>${value.issue_qty}</td>
+            <td>${numberWithCommas(value.issue_qty)}</td>
             <td>${numberWithCommas(value.issue_qumilative_qty)}</td>
             <td>${numberWithCommas(value.stock_in_hand)}</td>
-        </tr>`;
+        </tr>`; 
 
                     $('tbody').append(tr);
                 });
+
+                
+// Calculate the week number for the last date in the batch
+const lastDate = new Date(batchData[batchData.length - 1].date);
+        const weekNumber = getWeekNumber(lastDate);
+
+        // Display the week number
+        $('#week-number').text(weekNumber);
+                
 
                 currentIndex = end;
 
@@ -264,14 +295,96 @@
                     setTimeout(displayNextBatch, 5000);
                     //if data length end then start from 0
                 } else {
-                    currentIndex = 0;
-                    setTimeout(displayNextBatch, 5000);
+                    // If data length ends, reset currentIndex to 0 and wait for 10 seconds before fetching new data
+            currentIndex = 0;
+            setTimeout(function () {
+                fetchDataAndDisplay();
+            }, 10000);
                 }
             }
+function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+// Call fetchDataAndDisplay initially
+fetchDataAndDisplay();
+});
 
-            function numberWithCommas(x) {
-                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+        // <script>
+        //     $(document).ready(function() {
+        //         $.ajax({
+        //             url: '{{ route('get_grey_dashboard') }}',
+        //             type: 'GET',
+        //             dataType: 'json',
+
+        //             success: function(response) {
+        //                 console.log(response);
+        //                 data = response; // Store the response data
+        //                 currentIndex = 0; // Reset the index
+        //                 displayNextBatch(); // Start displaying data in batches
+        //             },
+        //             error: function(xhr, status, error) {
+        //                 console.log('Error:', error);
+        //             }
+        //         });
+        //     });
+
+        //     var batchSize = 7; // Number of rows to display in each batch
+        //     var currentIndex = 0; // Index to keep track of the current batch
+        //     var data = []; // Array to store the data
+
+        //     function displayNextBatch() {
+        //         if (currentIndex >= data.length) {
+        //             // All data has been displayed
+        //             return;
+        //         }
+
+        //         var end = Math.min(currentIndex + batchSize, data.length);
+        //         var batchData = data.slice(currentIndex, end);
+
+        //         // Clear previous table rows
+        //         $('tbody').empty();
+
+        //         $.each(batchData, function(key, value) {
+        //             var date = new Date(value.date);
+        //             var day = date.getDay();
+        //             var tr = `<tr style="background-color: ${day === 5 ? 'red' : 'transparent'}">  `;
+
+                    
+        //             tr +=
+        //                 `<td > ${date.toLocaleDateString(undefined, { day: 'numeric' })}
+        //                     </td>`;
+
+        //             if (date.getDate() === 1) {
+        //                 tr += `<td>${numberWithCommas(value.opening_qty)}</td>`;
+        //             } else {
+        //                 tr += '<td></td>';
+        //             }
+
+        //             tr += `<td>${numberWithCommas(value.received_qty)}</td>
+        //     <td>${numberWithCommas(value.received_qumilative_qty)}</td>
+        //     <td>${value.issue_qty}</td>
+        //     <td>${numberWithCommas(value.issue_qumilative_qty)}</td>
+        //     <td>${numberWithCommas(value.stock_in_hand)}</td>
+        // </tr>`;
+
+        //             $('tbody').append(tr);
+        //         });
+
+        //         currentIndex = end;
+
+        //         if (currentIndex < data.length) {
+        //             // Schedule the next batch with a 10-second delay
+        //             setTimeout(displayNextBatch, 5000);
+        //             //if data length end then start from 0
+        //         } else {
+        //             currentIndex = 0;
+        //             setTimeout(displayNextBatch, 5000);
+        //         }
+        //     }
+
+        //     function numberWithCommas(x) {
+        //         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        //     }
             // // Get the data from the server
             // $('#buyer_name').change(function() {
             //     var buyer_name = $(this).val();

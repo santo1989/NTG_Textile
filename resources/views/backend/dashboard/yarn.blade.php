@@ -56,9 +56,9 @@
                 </div>
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                 <h1 style="font-size: 4.5rem;"> Tosrifa Industries Ltd. </h1>
-                    <h5> 121/1, Beraierchala, Sreepur, Gazipur </h5>
+                    <h5> 121/1, Berider Chala, Sreepur, Gazipur </h5>
                      
-                    <p class="text-bold" style="font-size: 2rem;"><strong> Wearhouse Stock Yarn Information Dashboard</strong></h3>
+                    <p class="text-bold" style="font-size: 2rem;"><strong> Wearhouse  Stock Yarn Information Dashboard</strong></h3>
                 </div>
 
                 <div
@@ -75,20 +75,20 @@
 
             <!-- 3rd Row -->
             {{-- <div class=" mb-3" id="card-container"> --}}
-            <table class="table table-bordered  text-center no-wrap text-light pt-2">
-            <thead style="background-color:#183D3D ">
-                    <tr style="font-size: 2.8rem;">
+            <table class="table table-bordered text-light pt-2">
+            <thead style="background-color:#593d3b ">
+                    <tr style="font-size: 2.5vw;" class="text-center">
                         <!-- <th>Sl#</th> -->
                         <th>Date</th>
-                        <th>Opening Qty</th>
-                        <th>Received Qty</th>
-                        <th>Received Qumilative Qty</th>
-                        <th>Issue Qty</th>
-                        <th>Issue Qumilative Qty</th>
+                        <th>Opening</th>
+                        <th>Received</th>
+                        <th>Received Qumilative</th>
+                        <th>Issue</th>
+                        <th>Issue Qumilative</th>
                         <th>Stock in Hand</th>
                     </tr>
                 </thead>
-                <tbody style="font-size: 2.5rem;">
+                <tbody style="font-size: 2.3vw;" class="text-right">
                     @php $sl=0 @endphp
                     @foreach ($yarns as $grey_fabric)
                         <tr>
@@ -126,6 +126,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function() {
+                function fetchDataAndDisplay() {
                 $.ajax({
                     url: '{{ route('get_yarn_dashboard') }}',
                     type: 'GET',
@@ -139,9 +140,10 @@
                     },
                     error: function(xhr, status, error) {
                         console.log('Error:', error);
-                    }
-                });
-            });
+                    },
+        });
+    }
+
 
             var batchSize = 7; // Number of rows to display in each batch
             var currentIndex = 0; // Index to keep track of the current batch
@@ -149,8 +151,12 @@
 
             function displayNextBatch() {
                 if (currentIndex >= data.length) {
-                    // All data has been displayed
-                    return;
+                    // All data has been displayed then agin call ajax
+                   // All data has been displayed, wait for 10 seconds, then fetch new data
+            setTimeout(function () {
+                fetchDataAndDisplay();
+            }, 10000);
+            return;
                 }
 
                 var end = Math.min(currentIndex + batchSize, data.length);
@@ -162,7 +168,7 @@
                 $.each(batchData, function(key, value) {
                     var date = new Date(value.date);
                     var day = date.getDay();
-                    var tr = `<tr style="background-color: ${day === 5 ? 'red' : 'transparent'}">  `;
+                    var tr = `<tr style="background-color: ${day === 5 ? 'yellow' : 'transparent'}">  `;
 
                     
                     tr +=
@@ -177,7 +183,7 @@
 
                     tr += `<td>${numberWithCommas(value.received_qty)}</td>
             <td>${numberWithCommas(value.received_qumilative_qty)}</td>
-            <td>${value.issue_qty}</td>
+            <td>${numberWithCommas(value.issue_qty)}</td>
             <td>${numberWithCommas(value.issue_qumilative_qty)}</td>
             <td>${numberWithCommas(value.stock_in_hand)}</td>
         </tr>`;
@@ -192,13 +198,20 @@
                     setTimeout(displayNextBatch, 5000);
                     //if data length end then start from 0
                 } else {
-                    currentIndex = 0;
-                    setTimeout(displayNextBatch, 5000);
+                    // If data length ends, reset currentIndex to 0 and wait for 10 seconds before fetching new data
+            currentIndex = 0;
+            setTimeout(function () {
+                fetchDataAndDisplay();
+            }, 10000);
                 }
             }
 function numberWithCommas(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+// Call fetchDataAndDisplay initially
+fetchDataAndDisplay();
+});
+
             // // Get the data from the server
             // $('#buyer_name').change(function() {
             //     var buyer_name = $(this).val();
