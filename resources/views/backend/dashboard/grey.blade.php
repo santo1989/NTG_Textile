@@ -232,12 +232,13 @@
                 $('tbody').empty();
 
                 $.each(batchData, function(key, value) {
-                    var tr = `<tr>  `;
-
                     var date = new Date(value.date);
                     var day = date.getDay();
+                    var tr = `<tr style="background-color: ${day === 5 ? 'red' : 'transparent'}">  `;
+
+                    
                     tr +=
-                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}"> ${date.toLocaleDateString(undefined, { day: 'numeric' })}
+                        `<td > ${date.toLocaleDateString(undefined, { day: 'numeric' })}
                             </td>`;
 
                     if (date.getDate() === 1) {
