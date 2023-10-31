@@ -237,7 +237,7 @@
                     var date = new Date(value.date);
                     var day = date.getDay();
                     tr +=
-                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}"> {{ Carbon\Carbon::parse(`value.date`)->format('d') }}
+                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}"> ${date.toLocaleDateString(undefined, { day: 'numeric' })}
                             </td>`;
 
                     if (date.getDate() === 1) {
