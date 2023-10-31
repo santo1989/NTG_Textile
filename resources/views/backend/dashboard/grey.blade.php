@@ -55,10 +55,10 @@
                             class="logo" style="margin: 1%; "></p>
                 </div>
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-                    <h1> Tosrifa Industries Ltd. </h1>
+                    <h1 style="font-size: 4.5rem;"> Tosrifa Industries Ltd. </h1>
                     <h5> 121/1, Beraierchala, Sreepur, Gazipur </h5>
-                    <br>
-                    <h3>Wearhouse Stock Grey Fabrics Information Dashboard</h3>
+                     
+                    <p class="text-bold" style="font-size: 2rem;"><strong> Wearhouse Stock Grey Fabrics Information Dashboard</strong></h3>
                 </div>
 
                 <div
@@ -147,10 +147,10 @@
 
             <!-- 3rd Row -->
             {{-- <div class=" mb-3" id="card-container"> --}}
-            <table class="table table-bordered  text-center no-wrap text-light pt-2">
-                <thead style="background-color: #000000">
-                    <tr>
-                        <th>Sl#</th>
+            <table class="table table-bordered  text-center no-wrap text-light pt-2" style="boder: #454545">
+                <thead style="background-color:#183D3D ">
+                    <tr style="font-size: 2.8rem;">
+                        <!-- <th>Sl#</th> -->
                         <th>Date</th>
                         <th>Opening Qty</th>
                         <th>Received Qty</th>
@@ -160,11 +160,11 @@
                         <th>Stock in Hand</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="font-size: 2.5rem;">
                     @php $sl=0 @endphp
                     @foreach ($grey_fabrics as $grey_fabric)
                         <tr>
-                            <td>{{ ++$sl }}</td>
+                            <!-- <td>{{ ++$sl }}</td> -->
                             <!-- if friday then this row will be red but now data show in this row -->
                             @php
                                 $date = date('d', strtotime($grey_fabric->date));
@@ -215,7 +215,7 @@
                 });
             });
 
-            var batchSize = 5; // Number of rows to display in each batch
+            var batchSize = 7; // Number of rows to display in each batch
             var currentIndex = 0; // Index to keep track of the current batch
             var data = []; // Array to store the data
 
@@ -232,15 +232,12 @@
                 $('tbody').empty();
 
                 $.each(batchData, function(key, value) {
-                    var tr = `<tr> 
-                    <td>
-                        ${key + 1}
-                        </td>`;
+                    var tr = `<tr>  `;
 
                     var date = new Date(value.date);
                     var day = date.getDay();
                     tr +=
-                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}"> {{ Carbon\Carbon::parse(`value.date`)->format('d-M-Y') }}
+                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}"> {{ Carbon\Carbon::parse(`value.date`)->format('d') }}
                             </td>`;
 
                     if (date.getDate() === 1) {
