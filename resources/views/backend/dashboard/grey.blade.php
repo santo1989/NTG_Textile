@@ -148,18 +148,18 @@
             <!-- 3rd Row -->
             {{-- <div class=" mb-3" id="card-container"> --}}
             <table class="table table-bordered  text-center no-wrap text-light pt-2">
-                <thead style="background-color: #000000"> 
-                        <tr>
-                            <th>Sl#</th>
-                            <th>Date</th>
-                            <th>Opening Qty</th>
-                            <th>Received Qty</th>
-                            <th>Received Qumilative Qty</th>
-                            <th>Issue Qty</th>
-                            <th>Issue Qumilative Qty</th>
-                            <th>Stock in Hand</th>
-                        </tr>
-                    </thead>
+                <thead style="background-color: #000000">
+                    <tr>
+                        <th>Sl#</th>
+                        <th>Date</th>
+                        <th>Opening Qty</th>
+                        <th>Received Qty</th>
+                        <th>Received Qumilative Qty</th>
+                        <th>Issue Qty</th>
+                        <th>Issue Qumilative Qty</th>
+                        <th>Stock in Hand</th>
+                    </tr>
+                </thead>
                 <tbody>
                     @php $sl=0 @endphp
                     @foreach ($grey_fabrics as $grey_fabric)
@@ -240,7 +240,8 @@
                     var date = new Date(value.date);
                     var day = date.getDay();
                     tr +=
-                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}">${date.toDateString()}</td>`;
+                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}"> {{ Carbon\Carbon::parse(`value.date`)->format('d-M-Y') }}
+                            </td>`;
 
                     if (date.getDate() === 1) {
                         tr += `<td>${numberWithCommas(value.opening_qty)}</td>`;
@@ -269,9 +270,10 @@
                     setTimeout(displayNextBatch, 5000);
                 }
             }
-function numberWithCommas(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
             // // Get the data from the server
             // $('#buyer_name').change(function() {
             //     var buyer_name = $(this).val();

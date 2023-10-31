@@ -168,7 +168,8 @@
                     var date = new Date(value.date);
                     var day = date.getDay();
                     tr +=
-                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}">${date.toDateString()}</td>`;
+                        `<td style="background-color: ${day === 5 ? 'red' : 'transparent'}"> {{ Carbon\Carbon::parse(`value.date`)->format('d-M-Y') }}
+                            </td>`;
 
                     if (date.getDate() === 1) {
                         tr += `<td>${numberWithCommas(value.opening_qty)}</td>`;
