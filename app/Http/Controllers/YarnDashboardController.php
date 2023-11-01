@@ -46,6 +46,11 @@ class YarnDashboardController extends Controller
             $format = session('export_format');
             $search_yarn = session('search_yarn');
 
+            if ($search_yarn !== null) {
+                $search_yarn = $search_yarn->sortBy('date'); // Replace 'date' with the actual column name you want to sort by
+                $search_yarn = $search_yarn->values()->all(); // Re-index the array if needed
+            }
+
             if ($search_yarn == null) {
                 return redirect()->route('yarn.download')->withErrors('First search the data then export');
             } else {

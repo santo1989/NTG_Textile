@@ -27,10 +27,8 @@
                     {{ Carbon\Carbon::parse($yarn->date)->format('d-M-Y') }}
                 </td>
 
-                <td style="border: 1px solid #000; padding: 4px;">
-                    @if (Carbon\Carbon::parse($yarn->date)->format('d') === '1')
-                        {{ $yarn->opening_qty }}
-                    @endif
+                <td style="border: 1px solid #000; padding: 4px;"> 
+                        {{ $yarn->opening_qty }} 
 
                 </td>
                 <td style="border: 1px solid #000; padding: 4px;">{{ $yarn->received_qty }}</td>

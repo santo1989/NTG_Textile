@@ -44,6 +44,13 @@ class GreyDashboardController extends Controller
             // Retrieve the values from the session
             $format = session('export_format');
             $search_grey = session('search_grey');
+           
+            if ($search_grey !== null) {
+                $search_grey = $search_grey->sortBy('date'); // Replace 'date' with the actual column name you want to sort by
+                $search_grey = $search_grey->values()->all(); // Re-index the array if needed
+            }
+           
+
 
             if ($search_grey == null) {
                 return redirect()->route('yarn.index')->withErrors('First search the data then export');
