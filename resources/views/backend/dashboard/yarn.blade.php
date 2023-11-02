@@ -56,9 +56,9 @@
                 </div>
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                 <h1 style="font-size: 4.5rem;"> Tosrifa Industries Ltd. </h1>
-                    <h5> 121/1, Berider Chala, Sreepur, Gazipur </h5>
+                    <h5> 121/1, Beraider Chala, Sreepur, Gazipur </h5>
                      
-                    <p class="text-bold" style="font-size: 2rem;"><strong> Wearhouse  Stock Yarn Information Dashboard</strong></h3>
+                    <p class="text-bold" style="font-size: 2rem;"><strong> Warehouse  Stock Yarn Information Dashboard</strong></h3>
                 </div>
 
                 <div
@@ -82,9 +82,9 @@
                         <th>Date</th>
                         <th>Opening</th>
                         <th>Received</th>
-                        <th>Received Qumilative</th>
+                        <th>Received Qumulative</th>
                         <th>Issue</th>
-                        <th>Issue Qumilative</th>
+                        <th>Issue Qumulative</th>
                         <th>Stock in Hand</th>
                     </tr>
                 </thead>

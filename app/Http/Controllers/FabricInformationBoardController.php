@@ -266,7 +266,7 @@ class FabricInformationBoardController extends Controller
 
     public function dashboard()
     {
-        // $trims_dashboard = TrimsAccessoriesStore::all()->groupBy(['buyer_name', 'style_or_no', 'color_name', 'order_qty', 'unit']);
+        // $trims_dashboard = TrimsAccessoriesStore::all()->groupBy(['buyer_name', 'style_or_no', 'color_name', 'order_qty', 'dia']);
 
         $fabrics_dashboard = FabricInformationBoard::select(
             'buyer_name',
@@ -278,15 +278,27 @@ class FabricInformationBoardController extends Controller
             'dia',
             'gsm',
             'parts',
-            DB::raw('SUM(order_qty) as total_order_qty'), 
-            DB::raw('SUM(booking_qty) as total_booking_qty'),
-            DB::raw('SUM(receive_qty) as total_receive_qty'),
-            DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
-            DB::raw('SUM(dlv_cutting) as total_dlv_cutting'),
-            DB::raw('SUM(closing_stock) as total_closing_stock'),
-            DB::raw('GROUP_CONCAT( DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
-            DB::raw('GROUP_CONCAT( DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
-        )
+            DB::raw('SUM(CAST(order_qty AS FLOAT)) as total_order_qty'),
+                DB::raw('SUM(CAST(booking_qty AS FLOAT)) as total_booking_qty'),
+                DB::raw('SUM(CAST(receive_qty AS FLOAT)) as total_receive_qty'), 
+                
+                DB::raw('SUM(CAST(rcv_bal_qty AS FLOAT)) as total_rcv_bal_qty'),
+                DB::raw('SUM(CAST(dlv_cutting AS FLOAT)) as total_dlv_cutting'),
+                DB::raw('SUM(CAST(closing_stock AS FLOAT)) as total_closing_stock'), 
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + rack_no FROM fabric_information_boards AS T
+                    WHERE T.buyer_name = fabric_information_boards.buyer_name
+                    AND T.style_or_no = fabric_information_boards.style_or_no
+                    AND T.color_name = fabric_information_boards.color_name
+                    AND T.lot = fabric_information_boards.lot
+                    AND T.dia = fabric_information_boards.dia
+                    FOR XML PATH('')), 1, 2, '')) as rack_no"),
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + self_bin_no FROM fabric_information_boards AS T
+                    WHERE T.buyer_name = fabric_information_boards.buyer_name
+                    AND T.style_or_no = fabric_information_boards.style_or_no
+                    AND T.color_name = fabric_information_boards.color_name
+                    AND T.lot = fabric_information_boards.lot
+                    AND T.dia = fabric_information_boards.dia
+                    FOR XML PATH('')), 1, 2, '')) as self_bin_no"))
             ->groupBy([
                 'buyer_name',
                 'style_or_no',
@@ -318,15 +330,28 @@ class FabricInformationBoardController extends Controller
                 'dia',
                 'gsm',
                 'parts',
-                DB::raw('SUM(order_qty) as total_order_qty'), 
-                DB::raw('SUM(booking_qty) as total_booking_qty'),
-                DB::raw('SUM(receive_qty) as total_receive_qty'),
-                DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
-                DB::raw('SUM(dlv_cutting) as total_dlv_cutting'),
-                DB::raw('SUM(closing_stock) as total_closing_stock'),
-                DB::raw('GROUP_CONCAT( DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
-                DB::raw('GROUP_CONCAT( DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
-            )
+                DB::raw('SUM(CAST(order_qty AS FLOAT)) as total_order_qty'),
+                DB::raw('SUM(CAST(booking_qty AS FLOAT)) as total_booking_qty'),
+                DB::raw('SUM(CAST(receive_qty AS FLOAT)) as total_receive_qty'), 
+                
+                DB::raw('SUM(CAST(rcv_bal_qty AS FLOAT)) as total_rcv_bal_qty'),
+                DB::raw('SUM(CAST(dlv_cutting AS FLOAT)) as total_dlv_cutting'),
+                DB::raw('SUM(CAST(closing_stock AS FLOAT)) as total_closing_stock'), 
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + rack_no FROM fabric_information_boards AS T
+                    WHERE T.buyer_name = fabric_information_boards.buyer_name
+                    AND T.style_or_no = fabric_information_boards.style_or_no
+                    AND T.color_name = fabric_information_boards.color_name
+                    AND T.lot = fabric_information_boards.lot
+                    AND T.dia = fabric_information_boards.dia
+                    FOR XML PATH('')), 1, 2, '')) as rack_no"),
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + self_bin_no FROM fabric_information_boards AS T
+                    WHERE T.buyer_name = fabric_information_boards.buyer_name
+                    AND T.style_or_no = fabric_information_boards.style_or_no
+                    AND T.color_name = fabric_information_boards.color_name
+                    AND T.lot = fabric_information_boards.lot
+                    AND T.dia = fabric_information_boards.dia
+                    FOR XML PATH('')), 1, 2, '')) as self_bin_no")
+                )
                 ->groupBy([
                     'buyer_name',
                     'style_or_no',
@@ -352,15 +377,27 @@ class FabricInformationBoardController extends Controller
                     'dia',
                     'gsm',
                     'parts',
-                     DB::raw('SUM(order_qty) as total_order_qty'), 
-                    DB::raw('SUM(booking_qty) as total_booking_qty'),
-                    DB::raw('SUM(receive_qty) as total_receive_qty'),
-                    DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
-                    DB::raw('SUM(dlv_cutting) as total_dlv_cutting'),
-                    DB::raw('SUM(closing_stock) as total_closing_stock'),
-                    DB::raw('GROUP_CONCAT( DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
-                    DB::raw('GROUP_CONCAT( DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
-                )
+                    DB::raw('SUM(CAST(order_qty AS FLOAT)) as total_order_qty'),
+                    DB::raw('SUM(CAST(booking_qty AS FLOAT)) as total_booking_qty'),
+                    DB::raw('SUM(CAST(receive_qty AS FLOAT)) as total_receive_qty'), 
+                    
+                    DB::raw('SUM(CAST(rcv_bal_qty AS FLOAT)) as total_rcv_bal_qty'),
+                    DB::raw('SUM(CAST(dlv_cutting AS FLOAT)) as total_dlv_cutting'),
+                    DB::raw('SUM(CAST(closing_stock AS FLOAT)) as total_closing_stock'), 
+                    DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + rack_no FROM fabric_information_boards AS T
+                        WHERE T.buyer_name = fabric_information_boards.buyer_name
+                        AND T.style_or_no = fabric_information_boards.style_or_no
+                        AND T.color_name = fabric_information_boards.color_name
+                        AND T.lot = fabric_information_boards.lot
+                        AND T.dia = fabric_information_boards.dia
+                        FOR XML PATH('')), 1, 2, '')) as rack_no"),
+                    DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + self_bin_no FROM fabric_information_boards AS T
+                        WHERE T.buyer_name = fabric_information_boards.buyer_name
+                        AND T.style_or_no = fabric_information_boards.style_or_no
+                        AND T.color_name = fabric_information_boards.color_name
+                        AND T.lot = fabric_information_boards.lot
+                        AND T.dia = fabric_information_boards.dia
+                        FOR XML PATH('')), 1, 2, '')) as self_bin_no") )
                 ->groupBy([
                     'buyer_name',
                     'style_or_no',

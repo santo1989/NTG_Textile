@@ -58,7 +58,7 @@
                     <h1> Tosrifa Industries Ltd. </h1>
                     <h5> 121/1, Beraierchala, Sreepur, Gazipur </h5>
                     <br>
-                    <h3>Wearhouse Stock Yarn & Grey Fabrics Information Dashboard</h3>
+                    <h3>Warehouse Stock Yarn & Grey Fabrics Information Dashboard</h3>
                 </div>
 
                 <div
@@ -82,9 +82,9 @@
                                 <th>Date</th>
                                 <th>Opening Qty</th>
                                 <th>Received Qty</th>
-                                <th>Received Qumilative Qty</th>
+                                <th>Received Qumulative Qty</th>
                                 <th>Issue Qty</th>
-                                <th>Issue Qumilative Qty</th>
+                                <th>Issue Qumulative Qty</th>
                                 <th>Stock in Hand</th>
                             </tr>
                         </thead>
@@ -126,9 +126,9 @@
                                 <th>Date</th>
                                 <th>Opening Qty</th>
                                 <th>Received Qty</th>
-                                <th>Received Qumilative Qty</th>
+                                <th>Received Qumulative Qty</th>
                                 <th>Issue Qty</th>
-                                <th>Issue Qumilative Qty</th>
+                                <th>Issue Qumulative Qty</th>
                                 <th>Stock in Hand</th>
                             </tr>
                         </thead>

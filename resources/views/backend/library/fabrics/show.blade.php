@@ -45,7 +45,7 @@
                                     <td>{{ $fabrics->received_qty }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Received Qumilative Qty</th>
+                                    <th>Received Qumulative Qty</th>
                                     <td>{{ $fabrics->received_qumilative_qty }}</td>
                                 </tr>
                                 <tr>
@@ -54,7 +54,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th>Issue Qumilative Qty</th>
+                                    <th>Issue Qumulative Qty</th>
                                     <td>{{ $fabrics->issue_qumilative_qty }}</td>
                                 </tr>
                                 <tr>

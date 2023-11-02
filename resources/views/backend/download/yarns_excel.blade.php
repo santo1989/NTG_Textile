@@ -13,9 +13,9 @@
             <th style="border: 1px solid #000; padding: 4px;">Date</th>
             <th style="border: 1px solid #000; padding: 4px;">Opening Qty</th>
             <th style="border: 1px solid #000; padding: 4px;">Received Qty</th>
-            <th style="border: 1px solid #000; padding: 4px;">Received Qumilative Qty</th>
+            <th style="border: 1px solid #000; padding: 4px;">Received Qumulative Qty</th>
             <th style="border: 1px solid #000; padding: 4px;">Issue Qty</th>
-            <th style="border: 1px solid #000; padding: 4px;">Issue Qumilative Qty</th>
+            <th style="border: 1px solid #000; padding: 4px;">Issue Qumulative Qty</th>
             <th style="border: 1px solid #000; padding: 4px;">Stock in Hand</th>
             <th style="border: 1px solid #000; padding: 4px;">Remarks</th>
         </tr>

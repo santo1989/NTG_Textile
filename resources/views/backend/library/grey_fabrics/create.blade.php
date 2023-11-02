@@ -1,14 +1,14 @@
 <x-backend.layouts.master>
     <x-slot name="pageTitle">
-        Create Wearhouse Stock Grey Fabrics Information
+        Create Warehouse Stock Grey Fabrics Information
     </x-slot>
 
     <x-slot name='breadCrumb'>
         <x-backend.layouts.elements.breadcrumb>
-            <x-slot name="pageHeader"> Wearhouse Stock Grey Fabrics Information </x-slot>
+            <x-slot name="pageHeader"> Warehouse Stock Grey Fabrics Information </x-slot>
             {{-- <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('grey_fabrics.index') }}">Wearhouse Stock Grey Fabrics Information</a></li>
-            <li class="breadcrumb-item active">Create Wearhouse Stock Grey Fabrics Information</li> --}}
+            <li class="breadcrumb-item"><a href="{{ route('grey_fabrics.index') }}">Warehouse Stock Grey Fabrics Information</a></li>
+            <li class="breadcrumb-item active">Create Warehouse Stock Grey Fabrics Information</li> --}}
         </x-backend.layouts.elements.breadcrumb>
     </x-slot>
 
@@ -60,18 +60,18 @@
                 </div>
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
-                        <label for="received_qumilative_qty">Received Qumilative Qty</label>
+                        <label for="received_qumilative_qty">Received Qumulative Qty</label>
                         <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
-                            class="form-control" placeholder="Received Qumilative Qty" required>
+                            class="form-control" placeholder="Received Qumulative Qty" required>
                     </div>
                 @else
                     <div class="col-sm-4">
-                        <label for="received_qumilative_qty">Received Qumilative Qty</label>
+                        <label for="received_qumilative_qty">Received Qumulative Qty</label>
                         <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
-                            class="form-control" value="" placeholder="Received Qumilative Qty" required readonly>
+                            class="form-control" value="" placeholder="Received Qumulative Qty" required readonly>
                         <input type="hidden" name="last_record_closing_qumilative_qty"
                             id="last_record_closing_qumilative_qty" class="form-control"
-                            value="{{ $last_record_received_qumilative_qty }}" placeholder="Received Qumilative Qty"
+                            value="{{ $last_record_received_qumilative_qty }}" placeholder="Received Qumulative Qty"
                             required readonly>
 
                     </div>
@@ -83,20 +83,20 @@
                 </div>
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
-                        <label for="issue_qumilative_qty">Issue Qumilative Qty</label>
+                        <label for="issue_qumilative_qty">Issue Qumulative Qty</label>
                         <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
-                            placeholder="Issue Qumilative Qty" required>
+                            placeholder="Issue Qumulative Qty" required>
 
 
                     </div>
                 @else
                     <div class="col-sm-4">
-                        <label for="issue_qumilative_qty">Issue Qumilative Qty</label>
+                        <label for="issue_qumilative_qty">Issue Qumulative Qty</label>
                         <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
-                            value="" placeholder="Issue Qumilative Qty" required readonly>
+                            value="" placeholder="Issue Qumulative Qty" required readonly>
                         <input type="hidden" name="last_record_issue_qumilative_qty"
                             id="last_record_issue_qumilative_qty" class="form-control"
-                            value="{{ $last_record_issue_qumilative_qty }}" placeholder="Issue Qumilative Qty" required
+                            value="{{ $last_record_issue_qumilative_qty }}" placeholder="Issue Qumulative Qty" required
                             readonly>
 
                     </div>

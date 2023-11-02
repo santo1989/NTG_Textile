@@ -261,31 +261,110 @@ class TrimsAccessoriesStoreController extends Controller
         return redirect()->route('trims.index')->withMessage('TrimsAccessoriesStore and related data  are deleted successfully!');
     }
 
+    // public function dashboard()
+    // {
+    //     // $trims_dashboard = TrimsAccessoriesStore::all()->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit']);
+
+    //     $trims_dashboard = TrimsAccessoriesStore::select(
+    //         'buyer_name',
+    //         'style_or_no',
+    //         'color_name',
+    //         'item_no',
+    //         'unit',
+    //         DB::raw('SUM(booking_qty) as total_booking_qty'),
+    //         DB::raw('SUM(receive_qty) as total_receive_qty'),
+    //         DB::raw('SUM(issue_qty) as total_issue_qty'),
+    //         DB::raw('SUM(in_hand_qty) as total_in_hand_qty'),
+    //         DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
+    //         DB::raw('GROUP_CONCAT( DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
+    //         DB::raw('GROUP_CONCAT( DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
+    //     )
+    //     ->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit'])
+    //     ->get(); 
+    //     // dd($trims_dashboard);
+
+    //     return view('backend.dashboard.trims', compact('trims_dashboard'));
+    // }
+
+    // public function getTrimsDashboard(Request $request)
+    // {
+    //     $buyer_name = $request->input('buyer_name');
+    //     if ($buyer_name == 'all') {
+    //         $trims_dashboard = TrimsAccessoriesStore::select(
+    //             'buyer_name',
+    //             'style_or_no',
+    //             'color_name',
+    //             'item_no',
+    //             'unit',
+    //             DB::raw('SUM(booking_qty) as total_booking_qty'),
+    //             DB::raw('SUM(receive_qty) as total_receive_qty'),
+    //             DB::raw('SUM(issue_qty) as total_issue_qty'),
+    //             DB::raw('SUM(in_hand_qty) as total_in_hand_qty'),
+    //             DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
+    //             DB::raw('GROUP_CONCAT(DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
+    //             DB::raw('GROUP_CONCAT(DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
+    //         )
+    //             ->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit'])
+    //             ->get();
+    //     } else {
+
+    //         $trims_dashboard = TrimsAccessoriesStore::where('buyer_name', $buyer_name)
+    //             ->select(
+    //                 'buyer_name',
+    //                 'style_or_no',
+    //                 'color_name',
+    //                 'item_no',
+    //                 'unit',
+    //                 DB::raw('SUM(booking_qty) as total_booking_qty'),
+    //                 DB::raw('SUM(receive_qty) as total_receive_qty'),
+    //                 DB::raw('SUM(issue_qty) as total_issue_qty'),
+    //                 DB::raw('SUM(in_hand_qty) as total_in_hand_qty'),
+    //                 DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
+    //                 DB::raw('GROUP_CONCAT(DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
+    //                 DB::raw('GROUP_CONCAT(DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
+    //             )
+    //             ->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit'])
+    //             ->get();
+    //     }
+
+    //     return response()->json($trims_dashboard);
+    // }
+
+    
     public function dashboard()
     {
-        // $trims_dashboard = TrimsAccessoriesStore::all()->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit']);
-
         $trims_dashboard = TrimsAccessoriesStore::select(
             'buyer_name',
             'style_or_no',
             'color_name',
             'item_no',
             'unit',
-            DB::raw('SUM(booking_qty) as total_booking_qty'),
-            DB::raw('SUM(receive_qty) as total_receive_qty'),
-            DB::raw('SUM(issue_qty) as total_issue_qty'),
-            DB::raw('SUM(in_hand_qty) as total_in_hand_qty'),
-            DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
-            DB::raw('GROUP_CONCAT( DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
-            DB::raw('GROUP_CONCAT( DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
+            DB::raw('SUM(CAST(booking_qty AS FLOAT)) as total_booking_qty'),
+            DB::raw('SUM(CAST(receive_qty AS FLOAT)) as total_receive_qty'),
+            DB::raw('SUM(CAST(issue_qty AS FLOAT)) as total_issue_qty'),
+            DB::raw('SUM(CAST(in_hand_qty AS FLOAT)) as total_in_hand_qty'),
+            DB::raw('SUM(CAST(rcv_bal_qty AS FLOAT)) as total_rcv_bal_qty'),
+            DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + rack_no FROM trims_accessories_stores AS T
+                    WHERE T.buyer_name = trims_accessories_stores.buyer_name
+                    AND T.style_or_no = trims_accessories_stores.style_or_no
+                    AND T.color_name = trims_accessories_stores.color_name
+                    AND T.item_no = trims_accessories_stores.item_no
+                    AND T.unit = trims_accessories_stores.unit
+                    FOR XML PATH('')), 1, 2, '')) as rack_no"),
+            DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + self_bin_no FROM trims_accessories_stores AS T
+                    WHERE T.buyer_name = trims_accessories_stores.buyer_name
+                    AND T.style_or_no = trims_accessories_stores.style_or_no
+                    AND T.color_name = trims_accessories_stores.color_name
+                    AND T.item_no = trims_accessories_stores.item_no
+                    AND T.unit = trims_accessories_stores.unit
+                    FOR XML PATH('')), 1, 2, '')) as self_bin_no")
         )
-        ->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit'])
-        ->get(); 
-        // dd($trims_dashboard);
-
+        ->groupBy('buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit')
+        ->get();
+    
         return view('backend.dashboard.trims', compact('trims_dashboard'));
     }
-
+    
     public function getTrimsDashboard(Request $request)
     {
         $buyer_name = $request->input('buyer_name');
@@ -296,38 +375,64 @@ class TrimsAccessoriesStoreController extends Controller
                 'color_name',
                 'item_no',
                 'unit',
-                DB::raw('SUM(booking_qty) as total_booking_qty'),
-                DB::raw('SUM(receive_qty) as total_receive_qty'),
-                DB::raw('SUM(issue_qty) as total_issue_qty'),
-                DB::raw('SUM(in_hand_qty) as total_in_hand_qty'),
-                DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
-                DB::raw('GROUP_CONCAT(DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
-                DB::raw('GROUP_CONCAT(DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
+                DB::raw('SUM(CAST(booking_qty AS FLOAT)) as total_booking_qty'),
+                DB::raw('SUM(CAST(receive_qty AS FLOAT)) as total_receive_qty'),
+                DB::raw('SUM(CAST(issue_qty AS FLOAT)) as total_issue_qty'),
+                DB::raw('SUM(CAST(in_hand_qty AS FLOAT)) as total_in_hand_qty'),
+                DB::raw('SUM(CAST(rcv_bal_qty AS FLOAT)) as total_rcv_bal_qty'),
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + rack_no FROM trims_accessories_stores AS T
+                    WHERE T.buyer_name = trims_accessories_stores.buyer_name
+                    AND T.style_or_no = trims_accessories_stores.style_or_no
+                    AND T.color_name = trims_accessories_stores.color_name
+                    AND T.item_no = trims_accessories_stores.item_no
+                    AND T.unit = trims_accessories_stores.unit
+                    FOR XML PATH('')), 1, 2, '')) as rack_no"),
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + self_bin_no FROM trims_accessories_stores AS T
+                    WHERE T.buyer_name = trims_accessories_stores.buyer_name
+                    AND T.style_or_no = trims_accessories_stores.style_or_no
+                    AND T.color_name = trims_accessories_stores.color_name
+                    AND T.item_no = trims_accessories_stores.item_no
+                    AND T.unit = trims_accessories_stores.unit
+                    FOR XML PATH('')), 1, 2, '')) as self_bin_no")
             )
-                ->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit'])
-                ->get();
+            ->groupBy('buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit')
+            ->get();
         } else {
-
-            $trims_dashboard = TrimsAccessoriesStore::where('buyer_name', $buyer_name)
-                ->select(
-                    'buyer_name',
-                    'style_or_no',
-                    'color_name',
-                    'item_no',
-                    'unit',
-                    DB::raw('SUM(booking_qty) as total_booking_qty'),
-                    DB::raw('SUM(receive_qty) as total_receive_qty'),
-                    DB::raw('SUM(issue_qty) as total_issue_qty'),
-                    DB::raw('SUM(in_hand_qty) as total_in_hand_qty'),
-                    DB::raw('SUM(rcv_bal_qty) as total_rcv_bal_qty'),
-                    DB::raw('GROUP_CONCAT(DISTINCT rack_no ORDER BY rack_no SEPARATOR ",") as rack_no'),
-                    DB::raw('GROUP_CONCAT(DISTINCT self_bin_no ORDER BY self_bin_no SEPARATOR ",") as self_bin_no')
-                )
-                ->groupBy(['buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit'])
-                ->get();
-        }
-
-        return response()->json($trims_dashboard);
+        $trims_dashboard = TrimsAccessoriesStore::where('buyer_name', $buyer_name)
+            ->select(
+                'buyer_name',
+                'style_or_no',
+                'color_name',
+                'item_no',
+                'unit',
+                DB::raw('SUM(CAST(booking_qty AS FLOAT)) as total_booking_qty'),
+                DB::raw('SUM(CAST(receive_qty AS FLOAT)) as total_receive_qty'),
+                DB::raw('SUM(CAST(issue_qty AS FLOAT)) as total_issue_qty'),
+                DB::raw('SUM(CAST(in_hand_qty AS FLOAT)) as total_in_hand_qty'),
+                DB::raw('SUM(CAST(rcv_bal_qty AS FLOAT)) as total_rcv_bal_qty'),
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + rack_no FROM trims_accessories_stores AS T
+                    WHERE T.buyer_name = trims_accessories_stores.buyer_name
+                    AND T.style_or_no = trims_accessories_stores.style_or_no
+                    AND T.color_name = trims_accessories_stores.color_name
+                    AND T.item_no = trims_accessories_stores.item_no
+                    AND T.unit = trims_accessories_stores.unit
+                    FOR XML PATH('')), 1, 2, '')) as rack_no"),
+                DB::raw("(SELECT STUFF((SELECT DISTINCT '; ' + self_bin_no FROM trims_accessories_stores AS T
+                    WHERE T.buyer_name = trims_accessories_stores.buyer_name
+                    AND T.style_or_no = trims_accessories_stores.style_or_no
+                    AND T.color_name = trims_accessories_stores.color_name
+                    AND T.item_no = trims_accessories_stores.item_no
+                    AND T.unit = trims_accessories_stores.unit
+                    FOR XML PATH('')), 1, 2, '')) as self_bin_no")
+            )
+            ->groupBy('buyer_name', 'style_or_no', 'color_name', 'item_no', 'unit')
+            ->get();
     }
+
+    return response()->json($trims_dashboard);
+}
+
+    
+
 
 }

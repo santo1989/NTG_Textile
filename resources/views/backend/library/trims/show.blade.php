@@ -45,7 +45,7 @@
                                     <td>{{ $trims->received_qty }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Received Qumilative Qty</th>
+                                    <th>Received Qumulative Qty</th>
                                     <td>{{ $trims->received_qumilative_qty }}</td>
                                 </tr>
                                 <tr>
@@ -54,7 +54,7 @@
                                 </tr>
 
                                 <tr>
-                                    <th>Issue Qumilative Qty</th>
+                                    <th>Issue Qumulative Qty</th>
                                     <td>{{ $trims->issue_qumilative_qty }}</td>
                                 </tr>
                                 <tr>

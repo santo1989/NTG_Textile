@@ -1,14 +1,14 @@
 <x-backend.layouts.master>
     <x-slot name="pageTitle">
-        Wearhouse Stock Yarns Information
+        Warehouse Stock Yarns Information
     </x-slot>
 
     <x-slot name='breadCrumb'>
         <x-backend.layouts.elements.breadcrumb>
-            <x-slot name="pageHeader"> Wearhouse Stock Yarns Information </x-slot>
+            <x-slot name="pageHeader"> Warehouse Stock Yarns Information </x-slot>
 
             {{-- <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('yarns.index') }}">Wearhouse Stock Yarns Information</a></li> --}}
+            <li class="breadcrumb-item"><a href="{{ route('yarns.index') }}">Warehouse Stock Yarns Information</a></li> --}}
         </x-backend.layouts.elements.breadcrumb>
     </x-slot>
 
@@ -112,9 +112,9 @@
                                             <th>Date</th>
                                             <th>Opening Qty</th>
                                             <th>Received Qty</th>
-                                            <th>Received Qumilative Qty</th>
+                                            <th>Received Qumulative Qty</th>
                                             <th>Issue Qty</th>
-                                            <th>Issue Qumilative Qty</th>
+                                            <th>Issue Qumulative Qty</th>
                                             <th>Stock in Hand</th>
                                             <th>Actions</th>
 

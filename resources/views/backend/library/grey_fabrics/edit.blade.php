@@ -1,14 +1,14 @@
 <x-backend.layouts.master>
     <x-slot name="pageTitle">
-        Edit Wearhouse Stock Grey Fabrics Information Information
+        Edit Warehouse Stock Grey Fabrics Information Information
     </x-slot>
 
     <x-slot name='breadCrumb'>
         <x-backend.layouts.elements.breadcrumb>
-            <x-slot name="pageHeader"> Wearhouse Stock Grey Fabrics Information </x-slot>
+            <x-slot name="pageHeader"> Warehouse Stock Grey Fabrics Information </x-slot>
             {{-- <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('grey_fabrics.index') }}">Wearhouse Stock Grey Fabrics Information</a></li>
-            <li class="breadcrumb-item active">Edit Wearhouse Stock Grey Fabrics Information Information</li> --}}
+            <li class="breadcrumb-item"><a href="{{ route('grey_fabrics.index') }}">Warehouse Stock Grey Fabrics Information</a></li>
+            <li class="breadcrumb-item active">Edit Warehouse Stock Grey Fabrics Information Information</li> --}}
         </x-backend.layouts.elements.breadcrumb>
     </x-slot>
 
@@ -41,14 +41,14 @@
                         value="{{ $grey_fabric->received_qty }}" placeholder="Received Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
-                    <label for="received_qumilative_qty">Received Qumilative Qty</label>
+                    <label for="received_qumilative_qty">Received Qumulative Qty</label>
                     <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
                         class="form-control" value="{{ $grey_fabric->received_qumilative_qty }}"
-                        placeholder="Received Qumilative Qty" required readonly>
+                        placeholder="Received Qumulative Qty" required readonly>
 
                     <input type="hidden" name="last_record_closing_qumilative_qty"
                         id="last_record_closing_qumilative_qty" class="form-control"
-                        value="{{ $grey_fabric->received_qumilative_qty }}" placeholder="Received Qumilative Qty"
+                        value="{{ $grey_fabric->received_qumilative_qty }}" placeholder="Received Qumulative Qty"
                         required readonly>
                 </div>
                 <div class="col-sm-4">
@@ -60,14 +60,14 @@
                         value="{{ $grey_fabric->issue_qty }}" placeholder="Issue Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
-                    <label for="issue_qumilative_qty">Issue Qumilative Qty</label>
+                    <label for="issue_qumilative_qty">Issue Qumulative Qty</label>
                     <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
-                        value="{{ $grey_fabric->issue_qumilative_qty }}" placeholder="Issue Qumilative Qty" required
+                        value="{{ $grey_fabric->issue_qumilative_qty }}" placeholder="Issue Qumulative Qty" required
                         readonly>
 
                     <input type="hidden" name="last_record_issue_qumilative_qty" id="last_record_issue_qumilative_qty"
                         class="form-control" value="{{ $grey_fabric->issue_qumilative_qty }}"
-                        placeholder="Issue Qumilative Qty" required readonly>
+                        placeholder="Issue Qumulative Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
                     <label for="stock_in_hand">Stock in Hand</label>
