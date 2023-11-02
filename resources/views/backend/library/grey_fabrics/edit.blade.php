@@ -30,19 +30,19 @@
                 </div>
                 <div class="col-sm-4">
                     <label for="opening_qty">Opening Qty</label>
-                    <input type="number" name="opening_qty" id="opening_qty" class="form-control"
+                    <input type="text" name="opening_qty" id="opening_qty" class="form-control"
                         value="{{ $grey_fabric->opening_qty }}" placeholder="Opening Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
                     <label for="received_qty">Received Qty</label>
-                    <input type="number" name="received_qty" id="received_qty" class="form-control"
+                    <input type="text" name="received_qty" id="received_qty" class="form-control"
                         value="{{ $grey_fabric->received_qty }}" placeholder="Received Qty" required>
                     <input type="hidden" name="old_received_qty" id="old_received_qty" class="form-control"
                         value="{{ $grey_fabric->received_qty }}" placeholder="Received Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
                     <label for="received_qumilative_qty">Received Qumilative Qty</label>
-                    <input type="number" name="received_qumilative_qty" id="received_qumilative_qty"
+                    <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
                         class="form-control" value="{{ $grey_fabric->received_qumilative_qty }}"
                         placeholder="Received Qumilative Qty" required readonly>
 
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label for="issue_qty">Issue Qty</label>
-                    <input type="number" name="issue_qty" id="issue_qty" class="form-control"
+                    <input type="text" name="issue_qty" id="issue_qty" class="form-control"
                         value="{{ $grey_fabric->issue_qty }}" placeholder="Issue Qty" required>
 
                     <input type="hidden" name="old_issue_qty" id="old_issue_qty" class="form-control"
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label for="issue_qumilative_qty">Issue Qumilative Qty</label>
-                    <input type="number" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
+                    <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
                         value="{{ $grey_fabric->issue_qumilative_qty }}" placeholder="Issue Qumilative Qty" required
                         readonly>
 
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label for="stock_in_hand">Stock in Hand</label>
-                    <input type="number" name="stock_in_hand" id="stock_in_hand_with_old" class="form-control"
+                    <input type="text" name="stock_in_hand" id="stock_in_hand_with_old" class="form-control"
                         value="{{ $grey_fabric->stock_in_hand }}" placeholder="Stock in Hand" required readonly>
                 </div>
                 <div class="col-sm-4">

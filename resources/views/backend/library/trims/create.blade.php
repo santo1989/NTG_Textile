@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label for="received_qty">Order Qty</label>
-                    <input type="number" name="order_qty" id="order_qty" class="form-control" placeholder="Order Qty"
+                    <input type="text" name="order_qty" id="order_qty" class="form-control" placeholder="Order Qty"
                         required>
 
                 </div>

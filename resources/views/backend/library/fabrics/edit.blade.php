@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label for="received_qty">Order Qty</label>
-                    <input type="number" name="order_qty" id="order_qty" class="form-control" placeholder="Order Qty"
+                    <input type="text" name="order_qty" id="order_qty" class="form-control" placeholder="Order Qty"
                         required value="{{ $fabric->order_qty }}">
 
                 </div>
@@ -108,7 +108,7 @@
                 <!--  Dlv Cutting(kgs) -->
                 <div class="col-sm-4">
                     <label for="dlv_cutting"> Dlv Cutting(kgs)</label>
-                    <input type="number" name="dlv_cutting" id="dlv_cutting" class="form-control"
+                    <input type="text" name="dlv_cutting" id="dlv_cutting" class="form-control"
                         placeholder=" Dlv Cutting(kgs)" required value="{{ $fabric->dlv_cutting }}">
                 </div>
 

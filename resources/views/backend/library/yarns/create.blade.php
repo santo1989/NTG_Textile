@@ -41,33 +41,33 @@
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
                         <label for="opening_qty">Opening Qty</label>
-                        <input type="number" name="opening_qty" id="opening_qty" class="form-control"
+                        <input type="text" name="opening_qty" id="opening_qty" class="form-control"
                             placeholder="opening qty" required>
 
                     </div>
                 @else
                     <div class="col-sm-4">
                         <label for="opening_qty">Opening Qty</label>
-                        <input type="number" name="opening_qty" id="opening_qty" class="form-control"
+                        <input type="text" name="opening_qty" id="opening_qty" class="form-control"
                             value="{{ $last_record_opening_qty }}" placeholder="opening qty" required readonly>
                     </div>
                 @endif
                 <div class="col-sm-4">
                     <label for="received_qty">Received Qty</label>
-                    <input type="number" name="received_qty" id="received_qty" class="form-control"
+                    <input type="text" name="received_qty" id="received_qty" class="form-control"
                         placeholder="opening qty" required>
 
                 </div>
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
                         <label for="received_qumilative_qty">Received Qumilative Qty</label>
-                        <input type="number" name="received_qumilative_qty" id="received_qumilative_qty"
+                        <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
                             class="form-control" placeholder="Received Qumilative Qty" required>
                     </div>
                 @else
                     <div class="col-sm-4">
                         <label for="received_qumilative_qty">Received Qumilative Qty</label>
-                        <input type="number" name="received_qumilative_qty" id="received_qumilative_qty"
+                        <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
                             class="form-control" value="" placeholder="Received Qumilative Qty" required readonly>
                         <input type="hidden" name="last_record_closing_qumilative_qty"
                             id="last_record_closing_qumilative_qty" class="form-control"
@@ -78,13 +78,13 @@
                 @endif
                 <div class="col-sm-4">
                     <label for="issue_qty">Issue Qty</label>
-                    <input type="number" name="issue_qty" id="issue_qty" class="form-control" placeholder="Issue Qty"
+                    <input type="text" name="issue_qty" id="issue_qty" class="form-control" placeholder="Issue Qty"
                         required>
                 </div>
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
                         <label for="issue_qumilative_qty">Issue Qumilative Qty</label>
-                        <input type="number" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
+                        <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
                             placeholder="Issue Qumilative Qty" required>
 
 
@@ -92,7 +92,7 @@
                 @else
                     <div class="col-sm-4">
                         <label for="issue_qumilative_qty">Issue Qumilative Qty</label>
-                        <input type="number" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
+                        <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
                             value="" placeholder="Issue Qumilative Qty" required readonly>
                         <input type="hidden" name="last_record_issue_qumilative_qty"
                             id="last_record_issue_qumilative_qty" class="form-control"
@@ -104,14 +104,14 @@
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
                         <label for="stock_in_hand">Stock in Hand</label>
-                        <input type="number" name="stock_in_hand" id="stock_in_hand_normal" class="form-control"
+                        <input type="text" name="stock_in_hand" id="stock_in_hand_normal" class="form-control"
                             placeholder="Stock in Hand" required readonly>
 
                     </div>
                 @else
                     <div class="col-sm-4">
                         <label for="stock_in_hand">Stock in Hand</label>
-                        <input type="number" name="stock_in_hand" id="stock_in_hand_with_old" class="form-control"
+                        <input type="text" name="stock_in_hand" id="stock_in_hand_with_old" class="form-control"
                             placeholder="Stock in Hand" required readonly>
 
                     </div>
