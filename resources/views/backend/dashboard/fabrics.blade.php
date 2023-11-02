@@ -164,13 +164,13 @@
                 <tr>
                     <th>Buyer Name</th>
                     <th>Style/Or No</th>
-                    <th>Color Name</th>
-                    <th>Fabric Type</th>
                     <th>Parts</th>
+                    <th>Color Name</th> 
                     <th>Lot</th>
                     <th>Dia</th>
+                    <th>Fabric Type</th>
                     <th>GSM</th>
-                    <th>Order Qty</th>
+                    <!-- <th>Order Qty</th> -->
                     <th>Booking Qty</th>
                     <th>Received Qty</th>
                     <th>Received Balance Qty</th>
@@ -185,11 +185,11 @@
                     <tr>
                         <td>{{ $row->buyer_name }}</td>
                         <td>{{ $row->style_or_no }}</td>
-                        <td>{{ $row->color_name }}</td>
-                        <td>{{ $row->fabric_type }}</td>
                         <td>{{ $row->parts }}</td>
+                        <td>{{ $row->color_name }}</td> 
                         <td>{{ $row->lot }}</td>
-                        <td>{{ $row->dia }}</td>
+                        <td>{{ $row->dia }}</td> 
+                        <td>{{ $row->fabric_type }}</td>
                         <td>{{ $row->gsm }}</td>
                         <td>{{ $row->total_order_qty }}</td>
                         <td>{{ $row->total_booking_qty }}</td>
@@ -250,21 +250,27 @@
             $('tbody').empty();
 
             $.each(batchData, function(key, value) {
+                var total_booking_qty = Math.floor(value.total_booking_qty).toFixed(2);
+                var total_receive_qty = Math.floor(value.total_receive_qty).toFixed(2);  
+                var total_rcv_bal_qty = Math.floor(value.total_rcv_bal_qty).toFixed(2);  
+                var total_dlv_cutting = Math.floor(value.total_dlv_cutting).toFixed(2);  
+                var total_closing_stock = Math.floor(value.total_closing_stock).toFixed(2);   
+
+  
                 var tr = `<tr> 
                  <td>${value.buyer_name }</td>
-                        <td>${value.style_or_no }</td>
-                        <td>${value.color_name }</td>
-                        <td>${value.fabric_type }</td>
+                        <td>${value.style_or_no }</td> 
                         <td>${value.parts }</td>
+                        <td>${value.color_name }</td>
                         <td>${value.lot }</td>
-                        <td>${value.dia }</td>
-                        <td>${value.gsm }</td>
-                        <td>${value.total_order_qty }</td>  
-                        <td>${value.total_booking_qty }</td>
-                        <td>${value.total_receive_qty }</td>
-                        <td>${value.total_rcv_bal_qty }</td>
-                        <td>${value.total_dlv_cutting }</td>
-                        <td>${value.total_closing_stock }</td>
+                        <td>${value.dia }</td> 
+                        <td>${value.fabric_type }</td>
+                        <td>${value.gsm }</td> 
+                        <td>${total_booking_qty }</td>
+                        <td>${total_receive_qty }</td>
+                        <td>${total_rcv_bal_qty }</td>
+                        <td>${total_dlv_cutting }</td>
+                        <td>${total_closing_stock }</td>
                         <td>${value.rack_no }</td>
                         <td>${value.self_bin_no }</td>
             </tr>`;

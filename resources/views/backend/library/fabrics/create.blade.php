@@ -138,7 +138,7 @@
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-                <script>
+                <!-- <script>
                     $(document).ready(function() {
                         $('#booking_qty, #receive_qty').on('input', function() {
                             var booking_qty = parseFloat($('#booking_qty').val()) || 0;
@@ -158,7 +158,10 @@
                             $('#closing_stock').val(closing_stock.toFixed(2));
                         });
                     });
-                </script>
+                </script> -->
+
+              
+
                 <br>
                 <br>
             </div>
@@ -172,4 +175,46 @@
 
         </div>
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    $(document).ready(function() {
+        $('#booking_qty, #receive_qty').on('input', function() {
+            var booking_qty = parseFloat($('#booking_qty').val()) || 0;
+            var receive_qty = parseFloat($('#receive_qty').val()) || 0;
+            
+
+            // Check if the result is negative
+            if (booking_qty < receive_qty) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'You cannot input higher than Booking'
+                });
+                $('#receive_qty').val(''); // Clear the booking_qty field
+            }
+var rcv_bal_qty = booking_qty - receive_qty;
+            $('#rcv_bal_qty').val(rcv_bal_qty.toFixed(2));
+        });
+
+        $('#receive_qty, #dlv_cutting').on('input', function() {
+            var receive_qty = parseFloat($('#receive_qty').val()) || 0;
+            var dlv_cutting = parseFloat($('#dlv_cutting').val()) || 0;
+           
+
+            // Check if the result is negative
+            if (receive_qty < dlv_cutting) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'You cannot input higher than Received'
+                });
+                $('#dlv_cutting').val(''); // Clear the dlv_cutting field
+            }
+ var closing_stock = receive_qty - dlv_cutting;
+            $('#closing_stock').val(closing_stock.toFixed(2));
+        });
+    });
+</script>
+
 </x-backend.layouts.master>
