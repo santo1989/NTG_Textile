@@ -74,11 +74,11 @@
             </div>
 
             <!-- 3rd Row -->
-            <div class="col-sm-6">
+            <div class="col-md-6 col-sm-12">
                 <table class="table table-bordered  text-center no-wrap text-light pt-2">
                     <thead style="background-color: #000000"> 
                             <tr>
-                                <th>Sl#</th>
+                                <!-- <th>Sl#</th> -->
                                 <th>Date</th>
                                 <th>Opening Qty</th>
                                 <th>Received Qty</th>
@@ -118,11 +118,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-sm-6">
+            <div class="col-md-6 col-sm-12">
                 <table class="table table-bordered  text-center no-wrap text-light pt-2">
                     <thead style="background-color: #000000"> 
                             <tr>
-                                <th>Sl#</th>
+                                <!-- <th>Sl#</th> -->
                                 <th>Date</th>
                                 <th>Opening Qty</th>
                                 <th>Received Qty</th>
@@ -230,8 +230,7 @@
                 targetTableBody.empty();
 
                 $.each(batchData, function(key, value) {
-                    var tr = `<tr>
-                <td>${key + 1}</td>`;
+                    var tr = `<tr> `;
 
                     var date = new Date(value.date);
                     var day = date.getDay();
