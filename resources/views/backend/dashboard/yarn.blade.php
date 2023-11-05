@@ -55,15 +55,15 @@
                             class="logo" style="margin: 1%; "></p>
                 </div>
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-                <h1 style="font-size: 4.5rem;"> Tosrifa Industries Ltd. </h1>
-                    <h5> 121/1, Beraider Chala, Sreepur, Gazipur </h5>
+                <h1 style="font-size: 4.5vw;"> Tosrifa Industries Ltd. </h1>
+                    <h5 style="font-size: 1vw;"> 121/1, Beraider Chala, Sreepur, Gazipur </h5>
                      
-                    <p class="text-bold" style="font-size: 2rem;"><strong> Warehouse  Stock Yarn Information Dashboard</strong></h3>
+                    <p class="text-bold" style="font-size: 2vw;"><strong> Warehouse  Stock Yarn Information Dashboard</strong></h3>
                 </div>
 
                 <div
                     class="col-md-3 today-date text-light d-flex flex-column justify-content-center align-items-center">
-                    <strong>
+                    <strong style="font-size: 1vw;">
                         Today's Date: <span id="currentDate"></span> <br>
                         Current Time: <span id="currentTime"></span>
                     </strong>
@@ -82,9 +82,9 @@
                         <th>Date</th>
                         <th>Opening</th>
                         <th>Received</th>
-                        <th>Received Qumulative</th>
+                        <th>Received Cumulative</th>
                         <th>Issue</th>
-                        <th>Issue Qumulative</th>
+                        <th>Issue Cumulative</th>
                         <th>Stock in Hand</th>
                     </tr>
                 </thead>

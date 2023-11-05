@@ -167,11 +167,11 @@
                     <th>Color Name</th>
                     <th>Item Name</th>
                     <th>Unit</th>
-                    <th>Booking Qty</th>
-                    <th>Received Qty</th>
-                    <th>Received Balance Qty</th>
-                    <th>Issue Qty</th>
-                    <th>In Hand Qty</th>
+                    <th>Booking</th>
+                    <th>Received</th>
+                    <th>Received Balance</th>
+                    <th>Issue</th>
+                    <th>In Hand</th>
                     <th>Rack No</th>
                     <th>Self/Bin No</th>
                 </tr>

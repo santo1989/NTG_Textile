@@ -60,18 +60,18 @@
                 </div>
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
-                        <label for="received_qumilative_qty">Received Qumulative Qty</label>
+                        <label for="received_qumilative_qty">Received Cumulative Qty</label>
                         <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
-                            class="form-control" placeholder="Received Qumulative Qty" required>
+                            class="form-control" placeholder="Received Cumulative Qty" required>
                     </div>
                 @else
                     <div class="col-sm-4">
-                        <label for="received_qumilative_qty">Received Qumulative Qty</label>
+                        <label for="received_qumilative_qty">Received Cumulative Qty</label>
                         <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
-                            class="form-control" value="" placeholder="Received Qumulative Qty" required readonly>
+                            class="form-control" value="" placeholder="Received Cumulative Qty" required readonly>
                         <input type="hidden" name="last_record_closing_qumilative_qty"
                             id="last_record_closing_qumilative_qty" class="form-control"
-                            value="{{ $last_record_received_qumilative_qty }}" placeholder="Received Qumulative Qty"
+                            value="{{ $last_record_received_qumilative_qty }}" placeholder="Received Cumulative Qty"
                             required readonly>
 
                     </div>
@@ -83,20 +83,20 @@
                 </div>
                 @if ($last_record_id == null)
                     <div class="col-sm-4">
-                        <label for="issue_qumilative_qty">Issue Qumulative Qty</label>
+                        <label for="issue_qumilative_qty">Issue Cumulative Qty</label>
                         <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
-                            placeholder="Issue Qumulative Qty" required>
+                            placeholder="Issue Cumulative Qty" required>
 
 
                     </div>
                 @else
                     <div class="col-sm-4">
-                        <label for="issue_qumilative_qty">Issue Qumulative Qty</label>
+                        <label for="issue_qumilative_qty">Issue Cumulative Qty</label>
                         <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
-                            value="" placeholder="Issue Qumulative Qty" required readonly>
+                            value="" placeholder="Issue Cumulative Qty" required readonly>
                         <input type="hidden" name="last_record_issue_qumilative_qty"
                             id="last_record_issue_qumilative_qty" class="form-control"
-                            value="{{ $last_record_issue_qumilative_qty }}" placeholder="Issue Qumulative Qty" required
+                            value="{{ $last_record_issue_qumilative_qty }}" placeholder="Issue Cumulative Qty" required
                             readonly>
 
                     </div>

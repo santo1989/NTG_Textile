@@ -159,9 +159,9 @@
                         <th>Date</th>
                         <th>Opening</th>
                         <th>Received</th>
-                        <th>Received Qumulative</th>
+                        <th>Received Cumulative</th>
                         <th>Issue</th>
-                        <th>Issue Qumulative</th>
+                        <th>Issue Cumulative</th>
                         <th>Stock in Hand</th>
                     </tr>
                 </thead>

@@ -170,12 +170,12 @@
                     <th>Dia</th>
                     <th>Fabric Type</th>
                     <th>GSM</th>
-                    <!-- <th>Order Qty</th> -->
-                    <th>Booking Qty</th>
-                    <th>Received Qty</th>
-                    <th>Received Balance Qty</th>
-                    <th>Delivery Qty</th>
-                    <th>Closing Stock Qty</th>
+                    <!-- <th>Order</th> -->
+                    <th>Booking</th>
+                    <th>Received</th>
+                    <th>Received Balance</th>
+                    <th>Delivery</th>
+                    <th>Closing Stock</th>
                     <th>Rack No</th>
                     <th>Self/Bin No</th>
                 </tr>

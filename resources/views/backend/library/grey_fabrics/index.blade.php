@@ -143,9 +143,9 @@
                                             <th>Date</th>
                                             <th>Opening Qty</th>
                                             <th>Received Qty</th>
-                                            <th>Received Qumulative Qty</th>
+                                            <th>Received Cumulative Qty</th>
                                             <th>Issue Qty</th>
-                                            <th>Issue Qumulative Qty</th>
+                                            <th>Issue Cumulative Qty</th>
                                             <th>Stock in Hand</th>
                                             <th>Actions</th>
 

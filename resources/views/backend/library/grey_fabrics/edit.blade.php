@@ -41,14 +41,14 @@
                         value="{{ $grey_fabric->received_qty }}" placeholder="Received Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
-                    <label for="received_qumilative_qty">Received Qumulative Qty</label>
+                    <label for="received_qumilative_qty">Received Cumulative Qty</label>
                     <input type="text" name="received_qumilative_qty" id="received_qumilative_qty"
                         class="form-control" value="{{ $grey_fabric->received_qumilative_qty }}"
-                        placeholder="Received Qumulative Qty" required readonly>
+                        placeholder="Received Cumulative Qty" required readonly>
 
                     <input type="hidden" name="last_record_closing_qumilative_qty"
                         id="last_record_closing_qumilative_qty" class="form-control"
-                        value="{{ $grey_fabric->received_qumilative_qty }}" placeholder="Received Qumulative Qty"
+                        value="{{ $grey_fabric->received_qumilative_qty }}" placeholder="Received Cumulative Qty"
                         required readonly>
                 </div>
                 <div class="col-sm-4">
@@ -60,14 +60,14 @@
                         value="{{ $grey_fabric->issue_qty }}" placeholder="Issue Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
-                    <label for="issue_qumilative_qty">Issue Qumulative Qty</label>
+                    <label for="issue_qumilative_qty">Issue Cumulative Qty</label>
                     <input type="text" name="issue_qumilative_qty" id="issue_qumilative_qty" class="form-control"
-                        value="{{ $grey_fabric->issue_qumilative_qty }}" placeholder="Issue Qumulative Qty" required
+                        value="{{ $grey_fabric->issue_qumilative_qty }}" placeholder="Issue Cumulative Qty" required
                         readonly>
 
                     <input type="hidden" name="last_record_issue_qumilative_qty" id="last_record_issue_qumilative_qty"
                         class="form-control" value="{{ $grey_fabric->issue_qumilative_qty }}"
-                        placeholder="Issue Qumulative Qty" required readonly>
+                        placeholder="Issue Cumulative Qty" required readonly>
                 </div>
                 <div class="col-sm-4">
                     <label for="stock_in_hand">Stock in Hand</label>

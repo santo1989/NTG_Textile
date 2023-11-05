@@ -80,11 +80,11 @@
                             <tr>
                                 <!-- <th>Sl#</th> -->
                                 <th>Date</th>
-                                <th>Opening Qty</th>
-                                <th>Received Qty</th>
-                                <th>Received Qumulative Qty</th>
-                                <th>Issue Qty</th>
-                                <th>Issue Qumulative Qty</th>
+                                <th>Opening</th>
+                                <th>Received</th>
+                                <th>Received Cumulative</th>
+                                <th>Issue</th>
+                                <th>Issue Cumulative</th>
                                 <th>Stock in Hand</th>
                             </tr>
                         </thead>
@@ -124,11 +124,11 @@
                             <tr>
                                 <!-- <th>Sl#</th> -->
                                 <th>Date</th>
-                                <th>Opening Qty</th>
-                                <th>Received Qty</th>
-                                <th>Received Qumulative Qty</th>
-                                <th>Issue Qty</th>
-                                <th>Issue Qumulative Qty</th>
+                                <th>Opening</th>
+                                <th>Received</th>
+                                <th>Received Cumulative</th>
+                                <th>Issue</th>
+                                <th>Issue Cumulative</th>
                                 <th>Stock in Hand</th>
                             </tr>
                         </thead>
