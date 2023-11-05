@@ -50,20 +50,20 @@
         <!-- First Row -->
         <div class="row mb-3">
             <div class="row ">
-                <div class="col-md-3 d-flex flex-column justify-content-left align-items-left">
+            <div class="col-md-3 d-flex flex-column justify-content-left align-items-left">
                     <p> <img src="{{ asset('images/assets/logo.png') }}" alt="" heigt=350px; width=150px;
                             class="logo" style="margin: 1%; "></p>
                 </div>
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-                    <h1> Tosrifa Industries Ltd. </h1>
-                    <h5> 121/1, Beraierchala, Sreepur, Gazipur </h5>
-                    <br>
-                    <h3>Warehouse Stock Yarn & Grey Fabrics Information Dashboard</h3>
+                <h1 style="font-size: 4.5vw;"> Tosrifa Industries Ltd. </h1>
+                    <h5 style="font-size: 1vw;"> 121/1, Beraider Chala, Sreepur, Gazipur </h5>
+                     
+                    <p class="text-bold" style="font-size: 2vw;"><strong> Warehouse  Stock Yarn Information Dashboard</strong></h3>
                 </div>
 
                 <div
                     class="col-md-3 today-date text-light d-flex flex-column justify-content-center align-items-center">
-                    <strong>
+                    <strong style="font-size: 1vw;">
                         Today's Date: <span id="currentDate"></span> <br>
                         Current Time: <span id="currentTime"></span>
                     </strong>
