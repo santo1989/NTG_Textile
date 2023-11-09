@@ -58,7 +58,7 @@
                 <h1 style="font-size: 4.5vw;"> Tosrifa Industries Ltd. </h1>
                     <h5 style="font-size: 1vw;"> 121/1, Beraider Chala, Sreepur, Gazipur </h5>
                      
-                    <p class="text-bold" style="font-size: 2vw;"><strong> Warehouse  Stock Yarn Information Dashboard</strong></h3>
+                    <p class="text-bold" style="font-size: 2vw;"><strong> Warehouse  Stock Grey Fabrics Information</strong></h3>
                 </div>
 
                 <div
