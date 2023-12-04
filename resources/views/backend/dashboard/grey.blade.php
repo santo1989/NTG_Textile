@@ -167,7 +167,7 @@
                 </thead>
                 <tbody style="font-size: 2.3vw;" class="text-right">
                     @php $sl=0 @endphp
-                    @foreach ($grey_fabrics as $grey_fabric)
+                    @foreach ($grey_fabrics as $index => $grey_fabric)
                         <tr>
                             <!-- <td>{{ ++$sl }}</td> -->
                             <!-- if friday then this row will be red but now data show in this row -->
@@ -181,9 +181,9 @@
                                 <td>{{ $grey_fabric->date }}</td>
                             @endif
                             <td>
-                                @if (date('d', strtotime($grey_fabric->date)) === '01')
-                                    {{ number_format($grey_fabric->opening_qty, 0) }}
-                                @endif
+                                  @if ($index === 0 || date('d', strtotime($grey_fabric->date)) === '01')
+                {{ number_format($grey_fabric->opening_qty, 0) }}
+            @endif
                             </td>
                             <td>{{ number_format($grey_fabric->received_qty, 0) }}</td>
                             <td>{{ number_format($grey_fabric->received_qumilative_qty, 0) }}</td>
@@ -256,18 +256,15 @@
                 $.each(batchData, function(key, value) {
                     var date = new Date(value.date);
                     var day = date.getDay();
-                    var tr = `<tr style="background-color: ${day === 5 ? '#ef8354' : 'transparent'}">  `;
+                                 var tr = `<tr style="background-color: ${day === 5 ? '#ef8354' : 'transparent'}">`;
 
-                    
-                    tr +=
-                        `<td > ${date.toLocaleDateString(undefined, { day: 'numeric' })}
-                            </td>`;
+    tr += `<td>${date.toLocaleDateString(undefined, { day: 'numeric' })}</td>`;
 
-                    if (date.getDate() === 1) {
-                        tr += `<td>${numberWithCommas(value.opening_qty)}</td>`;
-                    } else {
-                        tr += '<td></td>';
-                    }
+    if (key === 0 || date.getDate() === 1) {
+        tr += `<td>${numberWithCommas(value.opening_qty)}</td>`;
+    } else {
+        tr += '<td></td>';
+    } 
 
                     tr += `<td>${numberWithCommas(value.received_qty)}</td>
             <td>${numberWithCommas(value.received_qumilative_qty)}</td>
