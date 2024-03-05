@@ -51,7 +51,7 @@ class QCController extends Controller
         $qcs->precentage_rejection = round($request->rejection / ($request->grade_a + $request->grade_b + $request->grade_c) * 100, 2);
         $qcs->total_check = $request->grade_a + $request->grade_b + $request->grade_c;
         $qcs->qc_pass_qty = $request->grade_a + $request->grade_b + $request->grade_c - $request->rejection;
-       
+    //    dd($qcs);
         $qcs->save();
 
         // Redirect

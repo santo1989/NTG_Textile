@@ -28,6 +28,14 @@ Route::get('/get-cpbs', [CPBController::class, 'getCPBs'])->name('get_cpbs');
 
 Route::get('/get-total', [CPBController::class, 'getCPBs_total'])->name('getCPBs_total');
 
+//qcs
+Route::get('/qcs/dashboard', [QCController::class, 'dashboard'])->name('qcs.dashboard');
+
+Route::get('/get-qcs', [QCController::class, 'getQCs'])->name('get_qcs');
+
+Route::get('/get-qcs-total', [QCController::class, 'getQCs_total'])->name('getQCs_total');
+
+
 //New registration ajax route
 
 Route::get('/get-company-designation/{divisionId}', [CompanyController::class, 'getCompanyDesignations'])->name('get_company_designation');
