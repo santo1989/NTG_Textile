@@ -199,6 +199,17 @@ class YarnDashboardController extends Controller
 
         $yarn->save();
 
+        // now update the records after the updated record 
+        $yarns = YarnDashboard::where('id', '>', $id)->get();
+        foreach ($yarns as $yarn) {
+            $yarn->opening_qty = $yarn->opening_qty - $yarn->received_qty + $yarn->issue_qty;
+            $yarn->received_qumilative_qty = $yarn->received_qumilative_qty - $yarn->received_qty;
+            $yarn->issue_qumilative_qty = $yarn->issue_qumilative_qty - $yarn->issue_qty;
+            $yarn->stock_in_hand = $yarn->stock_in_hand - $yarn->received_qty + $yarn->issue_qty;
+            $yarn->save();
+        }
+        
+
         // Redirect
         return redirect()->route('yarns.index')->withMessage('YarnDashboard and related data updated successfully!');
     }
