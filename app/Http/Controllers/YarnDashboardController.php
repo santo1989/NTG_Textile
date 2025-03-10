@@ -159,61 +159,127 @@ class YarnDashboardController extends Controller
     }
 
 
+    // public function update(Request $request, $id)
+    // {
+
+    //     $request->validate([
+    //         // 'company_id' => 'required',
+    //         // 'division_id' => 'required',
+    //         // 'department_id' => 'required',
+    //         'date' => 'required',
+    //         // 'opening_qty' => 'required',
+    //         'received_qty' => 'required',
+    //         // 'received_qumilative_qty' => 'required',
+    //         'issue_qty' => 'required',
+    //         // 'issue_qumilative_qty' => 'required',
+    //         // 'stock_in_hand' => 'required',
+    //     ]);
+
+
+    //     // Data update
+    //     $yarn = YarnDashboard::findOrFail($id);
+    //     //record before the $yarn record
+    //     $last_record = YarnDashboard::where('id', '<', $id)->latest()->first();
+
+
+    //     $this->authorize('update', $yarn); // Check if the user can update the specific yarns
+
+    //     $yarn->company_id = auth()->user()->company_id;
+    //     $yarn->division_id =  auth()->user()->division_id;
+    //     $yarn->department_id = auth()->user()->department_id;
+    //     $yarn->date = $request->date;
+
+    //     $yarn->opening_qty = $last_record->stock_in_hand;
+    //     $yarn->received_qumilative_qty = $last_record->received_qumilative_qty + $request->received_qty;
+    //     $yarn->issue_qumilative_qty = $last_record->issue_qumilative_qty + $request->issue_qty;
+
+    //     $yarn->stock_in_hand = $last_record->stock_in_hand + $request->received_qty - $request->issue_qty;
+    //     $yarn->received_qty = $request->received_qty;
+    //     $yarn->issue_qty = $request->issue_qty;
+
+    //     $yarn->updated_by = auth()->user()->id;
+    //     $yarn->updated_date = date('Y-m-d H:i:s');
+    //     $yarn->remarks = $request->remarks;
+
+    //     // dd($last_record, $yarn);
+
+
+    //     $yarn->save();
+
+    //     // now update the records after the updated record 
+    //     $yarns = YarnDashboard::where('id', '>', $id)->get();
+    //     foreach ($yarns as $yarn) {
+    //         $yarn->opening_qty = $yarn->opening_qty - $yarn->received_qty + $yarn->issue_qty;
+    //         $yarn->received_qumilative_qty = $yarn->received_qumilative_qty - $yarn->received_qty;
+    //         $yarn->issue_qumilative_qty = $yarn->issue_qumilative_qty - $yarn->issue_qty;
+    //         $yarn->stock_in_hand = $yarn->stock_in_hand - $yarn->received_qty + $yarn->issue_qty;
+    //         $yarn->save();
+    //     }
+
+
+    //     // Redirect
+    //     return redirect()->route('yarns.index')->withMessage('YarnDashboard and related data updated successfully!');
+    // }
+
+
+
     public function update(Request $request, $id)
     {
-
         $request->validate([
-            // 'company_id' => 'required',
-            // 'division_id' => 'required',
-            // 'department_id' => 'required',
             'date' => 'required',
-            // 'opening_qty' => 'required',
             'received_qty' => 'required',
-            // 'received_qumilative_qty' => 'required',
             'issue_qty' => 'required',
-            // 'issue_qumilative_qty' => 'required',
-            // 'stock_in_hand' => 'required',
         ]);
 
-
-        // Data update
         $yarn = YarnDashboard::findOrFail($id);
-        $last_record = $yarn::latest()->first();
-        $this->authorize('update', $yarn); // Check if the user can update the specific yarns
+        $this->authorize('update', $yarn);
 
+        // Get the previous record
+        $last_record = YarnDashboard::where('id', '<', $id)->latest()->first();
+
+        // Update current record
         $yarn->company_id = auth()->user()->company_id;
-        $yarn->division_id =  auth()->user()->division_id;
+        $yarn->division_id = auth()->user()->division_id;
         $yarn->department_id = auth()->user()->department_id;
         $yarn->date = $request->date;
 
-        $yarn->opening_qty = $last_record->stock_in_hand;
-        $yarn->received_qumilative_qty = $request->received_qumilative_qty;
-        $yarn->issue_qumilative_qty = $request->issue_qumilative_qty;
-        $yarn->stock_in_hand = $request->stock_in_hand;
+        // Handle first record case
+        $yarn->opening_qty = $last_record ? $last_record->stock_in_hand : 0;
+        $yarn->received_qumilative_qty = $last_record
+            ? $last_record->received_qumilative_qty + $request->received_qty
+            : $request->received_qty;
+        $yarn->issue_qumilative_qty = $last_record
+            ? $last_record->issue_qumilative_qty + $request->issue_qty
+            : $request->issue_qty;
+
+        $yarn->stock_in_hand = $yarn->opening_qty + $request->received_qty - $request->issue_qty;
         $yarn->received_qty = $request->received_qty;
         $yarn->issue_qty = $request->issue_qty;
-
         $yarn->updated_by = auth()->user()->id;
-        $yarn->updated_date = date('Y-m-d H:i:s');
+        $yarn->updated_date = now();
         $yarn->remarks = $request->remarks;
 
         $yarn->save();
 
-        // now update the records after the updated record 
-        $yarns = YarnDashboard::where('id', '>', $id)->get();
-        foreach ($yarns as $yarn) {
-            $yarn->opening_qty = $yarn->opening_qty - $yarn->received_qty + $yarn->issue_qty;
-            $yarn->received_qumilative_qty = $yarn->received_qumilative_qty - $yarn->received_qty;
-            $yarn->issue_qumilative_qty = $yarn->issue_qumilative_qty - $yarn->issue_qty;
-            $yarn->stock_in_hand = $yarn->stock_in_hand - $yarn->received_qty + $yarn->issue_qty;
-            $yarn->save();
+        // Update subsequent records
+        $subsequentYarns = YarnDashboard::where('id', '>', $id)
+            ->orderBy('id')
+            ->get();
+
+        $previousRecord = $yarn;
+
+        foreach ($subsequentYarns as $subsequent) {
+            $subsequent->opening_qty = $previousRecord->stock_in_hand;
+            $subsequent->received_qumilative_qty = $previousRecord->received_qumilative_qty + $subsequent->received_qty;
+            $subsequent->issue_qumilative_qty = $previousRecord->issue_qumilative_qty + $subsequent->issue_qty;
+            $subsequent->stock_in_hand = $subsequent->opening_qty + $subsequent->received_qty - $subsequent->issue_qty;
+
+            $subsequent->save();
+            $previousRecord = $subsequent;
         }
-        
 
-        // Redirect
-        return redirect()->route('yarns.index')->withMessage('YarnDashboard and related data updated successfully!');
+        return redirect()->route('yarns.index')->withMessage('YarnDashboard updated successfully!');
     }
-
 
     public function destroy($id)
     {
