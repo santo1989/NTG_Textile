@@ -231,9 +231,9 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Home
                     </a>
-                    <a class="nav-link " href="{{ route('users.show', ['user' => auth()->user()->id]) }}">
+                    <a class="nav-link" href="{{ route('exhaust_dyeings.index') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        Profile
+                        Exhaust Dyeing Management
                     </a>
                     <a class="nav-link" href="{{ route('cpbs.index') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -244,7 +244,68 @@
                         QCS Management
                     </a>
 
+                     {{-- start DataEntry --}}
+
+                     <a class="nav-link collapsed " href="#" data-bs-toggle="collapse"
+                     data-bs-target="#collapseLayoutsDataEntry" aria-expanded="false" aria-controls="collapseLayouts">
+                     <div class="sb-nav-link-icon"></div>
+                     <h4 class="sb-sidenav-menu-heading" style="color:#40c47c;">DashBoard Link</h4>
+                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                 </a>
+                 <div class="collapse" id="collapseLayoutsDataEntry" aria-labelledby="headingOne"
+                     data-bs-parent="#sidenavAccordion">
+                     <nav class="sb-sidenav-menu-nested nav">
+                         <a class="nav-link" target="_blank" href="{{ route('cpbs.dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             CPB Dashboard
+                         </a>
+                         <a class="nav-link" target="_blank" href="{{ route('qcs.dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             QC Dashboard
+                         </a>
+                         <a class="nav-link" target="_blank" href="{{ route('ed.dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             Exhaust Dyeing Management
+                         </a>
+                         <a class="nav-link" target="_blank" href="{{ route('trims_dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             Trims Dashboard
+                         </a>
+                         <a class="nav-link" target="_blank" href="{{ route('fabrics_dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             Fabrics Dashboard
+                         </a>
+                         <a class="nav-link" target="_blank" href="{{ route('grey_dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             Grey Fabrics Dashboard
+                         </a>
+                         <a class="nav-link" target="_blank" href="{{ route('yarn_dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             Yarns Dashboard
+                         </a>
+                         <a class="nav-link" target="_blank" href="{{ route('common_dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             Grey Fabrics and Yarns Dashboard
+                         </a>
+
+                         <a class="nav-link" target="_blank" href="{{ route('cpbs_ed_dashboard') }}">
+                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                             CPB and Exhaust Dyeing Dashboard
+                         </a>
+
+
+
+                     </nav>
+                 </div>
+
+
+                 {{-- end DataEntry  --}}
+
+                    
+
                 </div>
+
+                
             @endcan
 
             @can('Creator_yarn')
