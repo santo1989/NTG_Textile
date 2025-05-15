@@ -5,6 +5,7 @@ use App\Http\Controllers\CPBController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\ExhaustDyeingController;
 use App\Http\Controllers\FabricInformationBoardController;
 use App\Http\Controllers\GreyDashboardController;
 use App\Http\Controllers\NotificationController;
@@ -22,6 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//cpbs
 Route::get('/cpbs/dashboard', [CPBController::class, 'dashboard'])->name('cpbs.dashboard');
 
 Route::get('/get-cpbs', [CPBController::class, 'getCPBs'])->name('get_cpbs');
@@ -34,6 +36,11 @@ Route::get('/qcs/dashboard', [QCController::class, 'dashboard'])->name('qcs.dash
 Route::get('/get-qcs', [QCController::class, 'getQCs'])->name('get_qcs');
 
 Route::get('/get-qcs-total', [QCController::class, 'getQCs_total'])->name('getQCs_total');
+
+//exhaust_dyeings
+Route::get('/ed/dashboard', [ExhaustDyeingController::class, 'dashboard'])->name('ed.dashboard');
+Route::get('/get-exhaust_dyeings', [ExhaustDyeingController::class, 'get_exhaust_dyeings'])->name('get_exhaust_dyeings');
+Route::get('/get-exhaust_dyeings-total', [ExhaustDyeingController::class, 'getExhaustDyeings_total'])->name('getExhaustDyeings_total');
 
 
 //New registration ajax route
@@ -120,7 +127,10 @@ Route::middleware('auth')->group(function () {
     //fabrics
     Route::resource('fabrics', FabricInformationBoardController::class);
 
-    
+    //exhaust_dyeings
+    Route::resource('exhaust_dyeings', ExhaustDyeingController::class);
+
+
 });
 
 
@@ -143,6 +153,9 @@ Route::get('/get_yarn_dashboard', [YarnDashboardController::class, 'getYarnDashb
 //commonDashboard
 Route::get('/common_dashboard', [YarnDashboardController::class, 'commonDashboard'])->name('common_dashboard');
 Route::get('/get_common_dashboard', [YarnDashboardController::class, 'getcommonDashboard'])->name('getcommonDashboard');
+
+//cpbs and exhaust_dyeing combined
+Route::get('/cpbs_ed_dashboard', [ExhaustDyeingController::class, 'cpbs_ed_dashboard'])->name('cpbs_ed_dashboard');
 
 
 

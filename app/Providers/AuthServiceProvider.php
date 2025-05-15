@@ -3,10 +3,20 @@
 namespace App\Providers;
 
 use App\Models\CPB;
+use App\Models\ExhaustDyeing;
+use App\Models\FabricInformationBoard;
+use App\Models\GreyDashboard;
 use App\Models\QC;
+use App\Models\TrimsAccessoriesStore;
 use App\Models\User;
+use App\Models\YarnDashboard;
 use App\Policies\CPBPolicy;
+use App\Policies\ExhaustDyeingPolicy;
+use App\Policies\FabricInformationBoardPolicy;
+use App\Policies\GreyDashboardPolicy;
 use App\Policies\QCBPolicy;
+use App\Policies\TrimsAccessoriesStorePolicy;
+use App\Policies\YarnDashboardPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,10 +31,11 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         CPB::class => CPBPolicy::class,
         QC::class => QCBPolicy::class,
-        GreyDashboar::class => GreyDashboardPolicy::class,
+        GreyDashboard::class => GreyDashboardPolicy::class,
         YarnDashboard::class => YarnDashboardPolicy::class,
         FabricInformationBoard::class => FabricInformationBoardPolicy::class,
         TrimsAccessoriesStore::class => TrimsAccessoriesStorePolicy::class,
+        ExhaustDyeing::class => ExhaustDyeingPolicy::class,
     ];
 
     /**
@@ -122,6 +133,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('Editor_garments', function (User $user) {
 
             if ($user->role_id == 11) {
+                return true;
+            }
+            return false;
+        });
+
+        Gate::define('Creator_eds', function (User $user) {
+
+            if ($user->role->name == 'Creator_eds') {
                 return true;
             }
             return false;
